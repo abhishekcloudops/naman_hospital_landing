@@ -194,41 +194,6 @@ ul, ol { list-style: none; }
 .btn-sm { padding: 9px 20px; font-size: 0.82rem; }
 .btn-lg { padding: 15px 32px; font-size: 0.95rem; }
 
-/* Emergency Siren Button with Active Pulse Animation */
-.btn-emergency-pulse {
-  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
-  color: var(--white);
-  box-shadow: 0 4px 24px rgba(220, 38, 38, 0.45);
-  position: relative;
-  overflow: visible;
-}
-.btn-emergency-pulse:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.6);
-  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
-}
-.siren-pulse-ring {
-  position: absolute;
-  inset: -4px;
-  border-radius: var(--r-full);
-  border: 2px solid #EF4444;
-  opacity: 0;
-  animation: sirenPulse 2s infinite cubic-bezier(0.25, 1, 0.5, 1);
-  pointer-events: none;
-}
-@keyframes sirenPulse {
-  0%   { transform: scale(0.96); opacity: 0.85; }
-  70%  { transform: scale(1.15); opacity: 0; }
-  100% { transform: scale(1.22); opacity: 0; }
-}
-.btn-avatar-mini {
-  width: 26px; height: 26px;
-  border-radius: 50%;
-  border: 1.5px solid #6EE7B7;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
 /* ---- Emergency Banner ---- */
 .emergency-bar {
   background: var(--blue-deep);
@@ -477,264 +442,6 @@ ul, ol { list-style: none; }
   width: 240px; height: 240px; border-radius: 50%;
   background: radial-gradient(circle, rgba(46,125,50,0.05) 0%, transparent 70%);
   pointer-events: none; z-index: 0;
-/* ---- Hospital Clinical Identity & Animations ---- */
-/* 1. Live ECG Cardiac Monitor Bar */
-.ecg-monitor-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  background: rgba(6, 20, 36, 0.85);
-  border: 1px solid rgba(74, 222, 128, 0.28);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35), inset 0 0 16px rgba(74, 222, 128, 0.05);
-  border-radius: var(--r-md);
-  padding: 10px 18px;
-  margin-top: 22px;
-  backdrop-filter: blur(12px);
-  position: relative;
-  overflow: hidden;
-}
-.ecg-monitor-bar::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: #4ADE80;
-  box-shadow: 0 0 12px #4ADE80;
-}
-.ecg-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.92);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.ecg-heart-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  animation: heartBeat 1.4s infinite cubic-bezier(0.25, 1, 0.5, 1);
-}
-@keyframes heartBeat {
-  0%   { transform: scale(1); }
-  14%  { transform: scale(1.3); }
-  28%  { transform: scale(1); }
-  42%  { transform: scale(1.3); }
-  70%  { transform: scale(1); }
-  100% { transform: scale(1); }
-}
-.ecg-wave-wrap {
-  flex: 1;
-  height: 28px;
-  position: relative;
-  overflow: hidden;
-  min-width: 100px;
-}
-.ecg-svg {
-  width: 100%;
-  height: 100%;
-}
-.ecg-path-bg {
-  stroke: rgba(74, 222, 128, 0.2);
-  stroke-width: 1.5;
-  fill: none;
-}
-.ecg-path-pulse {
-  stroke: #4ADE80;
-  stroke-width: 2.2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  fill: none;
-  stroke-dasharray: 60 140;
-  animation: ecgSweep 2.2s linear infinite;
-  filter: drop-shadow(0 0 4px #4ADE80);
-}
-@keyframes ecgSweep {
-  0%   { stroke-dashoffset: 200; }
-  100% { stroke-dashoffset: -200; }
-}
-.ecg-stat {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.76rem;
-  color: #4ADE80;
-  font-weight: 800;
-  white-space: nowrap;
-  flex-shrink: 0;
-  background: rgba(74, 222, 128, 0.12);
-  border: 1px solid rgba(74, 222, 128, 0.25);
-  padding: 4px 10px;
-  border-radius: var(--r-full);
-}
-.ecg-bpm {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
-}
-
-/* 2. Top Hospital Live Ticker */
-.hospital-live-ticker {
-  background: #040D18;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.9);
-  padding: 6px 0;
-  font-size: 0.74rem;
-  font-weight: 600;
-  position: relative;
-  z-index: 201;
-}
-.hlt-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.hlt-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.hlt-pill-red {
-  background: #DC2626;
-  color: var(--white);
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  white-space: nowrap;
-}
-.siren-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  animation: ping 1.5s infinite;
-}
-.hlt-message {
-  color: rgba(255, 255, 255, 0.88);
-}
-.hlt-right {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  white-space: nowrap;
-}
-.hlt-link {
-  color: #93C5FD;
-  font-weight: 700;
-  transition: color 0.2s;
-}
-.hlt-link:hover { color: var(--white); }
-
-/* 3. Hospital Command Action Bar (Directly below Hero) */
-.hospital-command-bar {
-  margin-top: -36px;
-  position: relative;
-  z-index: 10;
-}
-.hcb-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-.hcb-card {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 22px 20px;
-  box-shadow: 0 10px 30px rgba(13, 27, 46, 0.08);
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  transition: all 0.3s var(--ease-out);
-  text-decoration: none;
-  color: inherit;
-  position: relative;
-  overflow: hidden;
-}
-.hcb-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; bottom: 0;
-  width: 4px;
-  background: var(--blue-mid);
-  opacity: 0;
-  transition: opacity 0.25s;
-}
-.hcb-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 40px rgba(21, 101, 192, 0.14);
-  border-color: rgba(21, 101, 192, 0.3);
-}
-.hcb-card:hover::before { opacity: 1; }
-.hcb-card.emergency-card::before { background: #DC2626; opacity: 1; }
-.hcb-card.emergency-card {
-  border-color: rgba(220, 38, 38, 0.25);
-  background: linear-gradient(145deg, #FFF5F5 0%, #FFFFFF 100%);
-}
-.hcb-card.emergency-card:hover {
-  box-shadow: 0 16px 40px rgba(220, 38, 38, 0.18);
-  border-color: #DC2626;
-}
-.hcb-icon-box {
-  width: 48px; height: 48px;
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  transition: transform 0.25s var(--ease-out);
-}
-.hcb-card:hover .hcb-icon-box { transform: scale(1.08); }
-.hcb-icon-red { background: #FEE2E2; color: #DC2626; }
-.hcb-icon-blue { background: #E0F2FE; color: var(--blue-mid); }
-.hcb-icon-green { background: #DCFCE7; color: var(--green-mid); }
-.hcb-icon-purple { background: #F3E8FF; color: #7E22CE; }
-.hcb-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.96rem;
-  font-weight: 700;
-  color: var(--text-dark);
-  line-height: 1.25;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.hcb-desc {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  line-height: 1.45;
-}
-.hcb-badge {
-  display: inline-block;
-  font-size: 0.65rem;
-  font-weight: 800;
-  padding: 2px 7px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-top: 6px;
-}
-.hcb-badge-red { background: #FEE2E2; color: #DC2626; }
-.hcb-badge-blue { background: #E0F2FE; color: var(--blue-mid); }
-.hcb-badge-green { background: #DCFCE7; color: var(--green-mid); }
-.hcb-badge-purple { background: #F3E8FF; color: #7E22CE; }
-
-/* 4. Floating Animation for Hospital Badges */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-}
-.floating-badge {
-  animation: float 4s ease-in-out infinite;
 }
 
 /* ---- Stat Cards ---- */
@@ -894,7 +601,6 @@ ul, ol { list-style: none; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
   .section { padding: 76px 0; }
   .section-sm { padding: 52px 0; }
-  .hcb-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
 }
 
 @media (max-width: 768px) {
@@ -905,13 +611,6 @@ ul, ol { list-style: none; }
   .section { padding: 56px 0; }
   .section-sm { padding: 38px 0; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
-  .hospital-command-bar { margin-top: -24px; }
-  .hcb-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .hcb-card { padding: 16px 12px; gap: 10px; border-radius: var(--r-md); }
-  .hcb-icon-box { width: 38px; height: 38px; border-radius: 9px; }
-  .hcb-title { font-size: 0.86rem; }
-  .hcb-desc { font-size: 0.72rem; }
-  .ecg-monitor-bar { padding: 8px 12px; gap: 10px; margin-top: 16px; }
   .mobile-dock {
     display: block;
     padding-bottom: max(6px, env(safe-area-inset-bottom, 0px));
@@ -930,10 +629,6 @@ ul, ol { list-style: none; }
   .ebar-emergency { font-size: 0.73rem; padding: 3px 10px; }
   .ebar-item { font-size: 0.72rem; }
   .ebar-item:last-child { display: none; }
-  .hcb-grid { grid-template-columns: 1fr; }
-  .ecg-monitor-bar { flex-wrap: wrap; gap: 8px; justify-content: space-between; }
-  .ecg-wave-wrap { width: 100%; min-width: 0; order: 3; height: 22px; }
-  .hospital-live-ticker .hlt-right { display: none; }
 }
 
 @media (max-width: 480px) {
@@ -946,7 +641,6 @@ ul, ol { list-style: none; }
   .nav-inner { gap: 8px; }
   .footer { padding: 48px 0 24px; }
   .footer-bottom { flex-direction: column; text-align: center; gap: 6px; }
-  .btn-emergency-pulse { font-size: 0.88rem; padding: 13px 18px; }
 }
 
 @media (max-width: 360px) {
