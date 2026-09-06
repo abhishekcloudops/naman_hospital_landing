@@ -140,30 +140,30 @@
 <!-- ======================================================
      EMERGENCY BAR
 ====================================================== -->
-<div class="emergency-bar">
+<div class="emergency-bar" id="emergencyBar">
   <div class="container emergency-bar-inner">
-    <div class="ebar-group">
-      <div class="ebar-dot"></div>
+    <div class="ebar-left">
       <a href="tel:06123507140" class="ebar-emergency">
+        <span class="ebar-dot"></span>
         <svg class="ebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/>
         </svg>
-        24x7 Emergency: 0612 – 3507140
+        <span>24x7 Emergency: <strong>0612 – 3507140</strong></span>
       </a>
-      <a href="tel:6201070884" class="ebar-item">
+      <a href="tel:6201070884" class="ebar-item ebar-item-ambulance">
         <svg class="ebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
         </svg>
-        Ambulance: +91 6201070884
+        <span>Ambulance: +91 6201070884</span>
       </a>
-      <span class="ebar-item">
+      <span class="ebar-item ebar-item-location">
         <svg class="ebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
         </svg>
-        Kankarbagh, Patna – 800 020
+        <span>Kankarbagh, Patna – 800 020</span>
       </span>
     </div>
-    <div class="ebar-group">
+    <div class="ebar-right">
       <span class="ebar-iso">ISO 9001 : 2015 Certified</span>
     </div>
   </div>
@@ -176,7 +176,7 @@
   <div class="container nav-inner">
     <a href="index.html" class="nav-logo">
       <img src="assets/images/logo.png" class="nav-logo-img" alt="Naman Hospital Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-      <div style="display:none; width:52px; height:52px; border-radius:12px; background:linear-gradient(135deg,#1565C0,#2E7D32); align-items:center; justify-content:center; color:white; font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.1rem;">N</div>
+      <div style="display:none; width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg,#1565C0,#2E7D32); align-items:center; justify-content:center; color:white; font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.1rem;">N</div>
       <div class="nav-logo-text">
         <span class="nav-logo-name">NAMAN HOSPITAL</span>
         <span class="nav-logo-sub">Kankarbagh, Patna</span>
@@ -190,8 +190,18 @@
       <a href="contact.html" class="nav-link active">Contact</a>
     </nav>
     <div class="nav-actions">
-      <a href="tel:06123507140" class="nav-tel">0612 – 3507140</a>
-      <a href="#appointment" class="btn btn-primary btn-sm">Book Appointment</a>
+      <a href="tel:06123507140" class="nav-tel" title="Call Emergency Hotline">
+        <svg class="nav-tel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/>
+        </svg>
+        <span>0612 – 3507140</span>
+      </a>
+      <a href="#appointment" class="btn btn-primary btn-sm nav-cta">Book Appointment</a>
+      <a href="tel:06123507140" class="nav-call-btn" aria-label="Call Hospital 24x7">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/>
+        </svg>
+      </a>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -201,14 +211,43 @@
 
 <!-- Mobile Nav -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="index.html" class="mobile-link">Home</a>
-  <a href="services.html" class="mobile-link">Services</a>
-  <a href="doctors.html" class="mobile-link">Specialists</a>
-  <a href="index.html#director-message" class="mobile-link">Director's Desk</a>
-  <a href="contact.html" class="mobile-link active">Contact</a>
+  <div class="mobile-menu-header">
+    <div class="mobile-menu-brand">
+      <span class="mobile-brand-title">NAMAN HOSPITAL</span>
+      <span class="mobile-brand-sub">Kankarbagh, Patna</span>
+    </div>
+  </div>
+  <nav class="mobile-nav-list">
+    <a href="index.html" class="mobile-link">
+      <span>Home</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+    <a href="services.html" class="mobile-link">
+      <span>Services & Specialties</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+    <a href="doctors.html" class="mobile-link">
+      <span>Our Specialists</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+    <a href="index.html#director-message" class="mobile-link">
+      <span>Director's Desk</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+    <a href="contact.html" class="mobile-link active">
+      <span>Emergency & Contact</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+  </nav>
   <div class="mobile-cta-group">
-    <a href="tel:06123507140" class="btn btn-white">Call: 0612-3507140</a>
-    <a href="#appointment" class="btn btn-green">Book Appointment</a>
+    <a href="tel:06123507140" class="btn btn-white">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+      Call: 0612 – 3507140
+    </a>
+    <a href="#appointment" class="btn btn-green">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Book Appointment
+    </a>
   </div>
 </div>
 
