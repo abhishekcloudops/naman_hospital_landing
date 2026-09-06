@@ -605,7 +605,7 @@ ul, ol { list-style: none; }
 
 @media (max-width: 768px) {
   :root { --nav-h: 64px; }
-  .container { padding: 0 18px; }
+  .container { padding: 0 20px; }
   .nav-links, .nav-actions .nav-tel, .nav-actions .btn { display: none; }
   .hamburger { display: flex; }
   .section { padding: 56px 0; }
@@ -633,7 +633,7 @@ ul, ol { list-style: none; }
 
 @media (max-width: 480px) {
   html { font-size: 15px; }
-  .container { padding: 0 14px; }
+  .container { padding: 0 18px; }
   :root { --nav-h: 60px; }
   .nav-logo-img { width: 40px; height: 40px; }
   .nav-logo-name { font-size: 0.92rem; }
@@ -644,7 +644,7 @@ ul, ol { list-style: none; }
 }
 
 @media (max-width: 360px) {
-  .container { padding: 0 12px; }
+  .container { padding: 0 16px; }
   .nav-logo-name { font-size: 0.86rem; }
   .nav-logo-img { width: 36px; height: 36px; }
   .ebar-item { display: none; }
