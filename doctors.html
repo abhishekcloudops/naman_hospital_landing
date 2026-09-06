@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Specialist Doctors — Naman Hospital Patna</title>
+  <meta name="description" content="Meet Naman Hospital's team of 22 MCh, DM, MS, MD and MDS super-specialists in Orthopaedics, Neurology, Cardiology, Gastroenterology, Urology, Gynaecology, Burns and more.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+    /* Doctors page specific */
+    .doctor-search-bar {
+      width: 100%; max-width: 560px; margin: 0 auto 32px;
+      position: relative;
+    }
+    .doctor-search-bar svg {
+      position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); pointer-events: none;
+    }
+    .doctor-search-bar input {
+      width: 100%; padding: 13px 20px 13px 48px;
+      border: 1.5px solid var(--border); border-radius: var(--r-full);
+      background: var(--white); font-size: 16px; font-family: 'Inter', sans-serif;
+      color: var(--text-dark); transition: all 0.2s;
+    }
+    .doctor-search-bar input:focus {
+      outline: none; border-color: var(--blue-bright);
+      box-shadow: 0 0 0 3px rgba(30,136,229,0.12);
+    }
+    .doctor-search-bar input::placeholder { color: var(--text-light); }
+
+    .dept-tabs-scroll {
+      width: 100%; max-width: 100%;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px; scrollbar-width: none;
+    }
+    .dept-tabs-scroll::-webkit-scrollbar { display: none; }
+    .dept-tabs { display: flex; gap: 8px; width: max-content; padding: 2px 2px 6px; margin-bottom: 32px; }
+    .doc-tab {
+      padding: 8px 18px; border-radius: var(--r-full);
+      border: 1.5px solid var(--border); background: var(--white);
+      font-size: 0.82rem; font-weight: 600; color: var(--text-muted);
+      white-space: nowrap; cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: all 0.2s; flex-shrink: 0;
+    }
+    .doc-tab:hover { border-color: var(--blue-bright); color: var(--blue-mid); }
+    .doc-tab.active {
+      background: linear-gradient(135deg, var(--blue-mid), var(--blue-deep));
+      color: var(--white); border-color: transparent;
+      box-shadow: 0 4px 14px rgba(21,101,192,.3);
+    }
+
+    #docGrid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    }
+    .doc-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r-lg); overflow: hidden;
+      box-shadow: var(--sh-sm); transition: all 0.3s var(--ease-out);
+    }
+    .doc-card:hover { transform: translateY(-5px); box-shadow: var(--sh-lg); border-color: rgba(21,101,192,0.2); }
+    .doc-card-header {
+      padding: 26px 18px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%);
+    }
+    .doc-avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      overflow: hidden; flex-shrink: 0;
+      border: 3px solid var(--white); box-shadow: var(--sh-md);
+    }
+    .doc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .doc-avatar-fallback {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, var(--blue-mid), var(--green-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem; font-weight: 700; color: rgba(255,255,255,0.9);
+    }
+    .doc-qual {
+      display: inline-block; padding: 4px 10px;
+      background: var(--blue-light); color: var(--blue-deep);
+      border-radius: 6px; font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .doc-card-body { padding: 16px 18px 18px; }
+    .doc-name { font-family: 'Space Grotesk', sans-serif; font-size: 0.96rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; line-height: 1.3; }
+    .doc-specialty { font-size: 0.82rem; font-weight: 600; color: var(--blue-mid); margin-bottom: 10px; line-height: 1.3; }
+    .doc-timing {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.76rem; font-weight: 500; color: var(--text-muted);
+      background: var(--off-white); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 7px 10px; margin-bottom: 14px;
+    }
+    .doc-book {
+      width: 100%; padding: 11px; border-radius: var(--r-sm);
+      border: 1.5px solid var(--border); background: var(--white);
+      font-size: 0.84rem; font-weight: 700; color: var(--blue-mid);
+      font-family: 'Inter', sans-serif; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .doc-book:hover {
+      background: linear-gradient(135deg, var(--blue-mid), var(--blue-deep));
+      color: var(--white); border-color: transparent;
+    }
+    #docEmpty {
+      grid-column: 1/-1; display: none;
+      flex-direction: column; align-items: center; justify-content: center;
+      padding: 60px 20px; text-align: center; gap: 12px;
+    }
+    #docEmpty svg { color: var(--text-light); }
+    #docEmpty h3 { font-family: 'Space Grotesk', sans-serif; color: var(--text-dark); }
+    #docEmpty p { color: var(--text-muted); font-size: 0.9rem; }
+    #docEmpty button { margin-top: 8px; }
+
+    /* Leadership highlight */
+    .leadership-banner {
+      background: linear-gradient(135deg, var(--blue-deep), #0D47A1 60%, var(--green-deep) 100%);
+      border-radius: var(--r-xl); padding: 48px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+      position: relative; overflow: hidden;
+    }
+    .leadership-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.05) 0%, transparent 60%);
+    }
+    .lb-item { text-align: center; position: relative; z-index: 1; }
+    .lb-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem; font-weight: 700;
+      background: linear-gradient(135deg, #93C5FD, #6EE7B7);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      line-height: 1; margin-bottom: 8px;
+    }
+    .lb-label { font-size: 0.82rem; font-weight: 500; color: rgba(255,255,255,0.6); line-height: 1.4; }
+
+    @media (max-width: 1100px) { #docGrid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 820px) {
+      #docGrid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .leadership-banner { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    }
+    @media (max-width: 560px) {
+      #docGrid { grid-template-columns: 1fr; }
+      .leadership-banner { grid-template-columns: 1fr 1fr; padding: 22px 14px; gap: 14px; border-radius: var(--r-lg); }
+      .doc-card-header { padding: 20px 16px 14px; }
+      .doc-card-body { padding: 14px 16px 16px; }
+    }
+    @media (max-width: 360px) {
+      .leadership-banner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Emergency Bar -->
+<div class="emergency-bar">
+  <div class="container emergency-bar-inner">
+    <div class="ebar-group">
+      <div class="ebar-dot"></div>
+      <a href="tel:06123507140" class="ebar-emergency">24x7 Emergency: 0612 – 3507140</a>
+    </div>
+    <div class="ebar-group"><span class="ebar-iso">ISO 9001 : 2015</span></div>
+  </div>
+</div>
+
+<!-- Navbar -->
+<header class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo.png" class="nav-logo-img" alt="Naman Hospital" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+      <div style="display:none; width:50px; height:50px; border-radius:12px; background:linear-gradient(135deg,#1565C0,#2E7D32); align-items:center; justify-content:center; color:white; font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.1rem;">N</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">NAMAN HOSPITAL</span>
+        <span class="nav-logo-sub">Kankarbagh, Patna</span>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="doctors.html" class="nav-link">Specialists</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:06123507140" class="nav-tel">0612 – 3507140</a>
+      <a href="contact.html#appointment" class="btn btn-primary btn-sm">Book Appointment</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" class="mobile-link">Home</a>
+  <a href="services.html" class="mobile-link">Services</a>
+  <a href="doctors.html" class="mobile-link active">Specialists</a>
+  <a href="contact.html" class="mobile-link">Contact</a>
+  <div class="mobile-cta-group">
+    <a href="tel:06123507140" class="btn btn-white">Call Emergency</a>
+    <a href="contact.html#appointment" class="btn btn-green">Book Appointment</a>
+  </div>
+</div>
+
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="page-hero-mesh"></div>
+  <div class="container page-hero-content">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span class="breadcrumb-sep">›</span><span>Specialist Doctors</span>
+    </div>
+    <div class="page-hero-eyebrow">22 Super-Specialists</div>
+    <h1>Our Expert Medical<br>Specialist Team</h1>
+    <p>MCh, DM, MS, MD and MDS qualified super-specialists — each a domain leader with decades of clinical experience at Naman Hospital, Patna.</p>
+  </div>
+</div>
+
+<!-- ======================================================
+     LEADERSHIP HIGHLIGHT
+====================================================== -->
+<section class="section-sm" style="background: var(--off-white);">
+  <div class="container">
+    <div class="leadership-banner reveal">
+      <div class="lb-item">
+        <div class="lb-num">22+</div>
+        <div class="lb-label">Super-Specialists<br>MCh / DM / MS / MD / MDS</div>
+      </div>
+      <div class="lb-item">
+        <div class="lb-num">20+</div>
+        <div class="lb-label">Departments &amp; Surgical<br>Specialty Units</div>
+      </div>
+      <div class="lb-item">
+        <div class="lb-num">24/7</div>
+        <div class="lb-label">On-Call Emergency<br>Surgeons &amp; Physicians</div>
+      </div>
+      <div class="lb-item">
+        <div class="lb-num">ISO</div>
+        <div class="lb-label">9001:2015 Certified<br>Clinical Standards</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     DOCTORS GRID
+====================================================== -->
+<section class="section" style="background: var(--white);">
+  <div class="container">
+    <div class="section-header reveal" style="margin-bottom:32px;">
+      <span class="eyebrow">Find a Specialist</span>
+      <h2 class="heading-1">Search &amp; Filter<br><span class="text-gradient-blue">Our Doctors</span></h2>
+    </div>
+
+    <div class="doctor-search-bar reveal">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" id="docSearch" placeholder="Search by doctor name, specialty or qualification...">
+    </div>
+
+    <div class="dept-tabs-scroll reveal">
+      <div class="dept-tabs">
+        <button class="doc-tab active" data-dept="all">All Doctors (26)</button>
+        <button class="doc-tab" data-dept="ortho">Ortho &amp; Spine</button>
+        <button class="doc-tab" data-dept="neuro">Neuro &amp; Brain</button>
+        <button class="doc-tab" data-dept="gastro">Gastro &amp; Liver</button>
+        <button class="doc-tab" data-dept="onco">Oncology</button>
+        <button class="doc-tab" data-dept="uro">Urology &amp; Nephro</button>
+        <button class="doc-tab" data-dept="cardio">Cardiology</button>
+        <button class="doc-tab" data-dept="gynae">Gynaecology</button>
+        <button class="doc-tab" data-dept="pedia">Paediatrics</button>
+        <button class="doc-tab" data-dept="surgery">General Surgery</button>
+        <button class="doc-tab" data-dept="burn">Plastic &amp; Burn</button>
+        <button class="doc-tab" data-dept="icu">Critical Care</button>
+        <button class="doc-tab" data-dept="ent">ENT &amp; Dental</button>
+        <button class="doc-tab" data-dept="chest">Chest &amp; Pulmo</button>
+      </div>
+    </div>
+
+    <div id="docGrid">
+      <!-- Leadership / Director & Chief Consultants -->
+      <div class="doc-card" data-dept="all" data-text="dr rajan kumar mbbs md director chief medical consultant medicine general opd physician">
+        <div class="doc-card-header" style="background: linear-gradient(180deg, #E3F2FD 0%, #FFFFFF 100%);">
+          <div class="doc-avatar" style="border: 3px solid #1565C0;">
+            <img src="assets/images/dr-rajan-kumar.jpg" alt="Dr. Rajan Kumar" onerror="this.src='Dr. Rajan kumar.jpeg'">
+          </div>
+          <div class="doc-qual" style="background: #1565C0; color: #FFFFFF;">DIRECTOR &middot; MBBS, MD</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Rajan Kumar</div>
+          <div class="doc-specialty" style="color: #1565C0; font-weight: 700;">Director &amp; Chief Consultant</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Sat, 10AM–6PM (OPD)</div>
+          <button class="doc-book" style="background: linear-gradient(135deg, #1565C0, #0D47A1); color: #FFFFFF; border: none;" onclick="bookDoc('Dr. Rajan Kumar','Director & Chief Consultant')">Consult Director</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="all" data-text="dr shashi shekhar mbbs md chief consultant medicine physician critical care">
+        <div class="doc-card-header">
+          <div class="doc-avatar">
+            <img src="assets/images/dr-shashi-shekhar.jpg" alt="Dr. Shashi Shekhar" onerror="this.src='Dr shashi shekhar.jpeg'">
+          </div>
+          <div class="doc-qual">MBBS, MD</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Shashi Shekhar</div>
+          <div class="doc-specialty">Chief Consultant (Medicine)</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Sat, 10AM–5PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Shashi Shekhar','Chief Consultant')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="all" data-text="dr sehzad khan mbbs md chief medical consultant medicine">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">SK</div></div>
+          <div class="doc-qual">MBBS, MD</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Sehzad Khan</div>
+          <div class="doc-specialty">Chief Medical Consultant</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Sat, 11AM–4PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Sehzad Khan','Chief Medical Consultant')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="surgery" data-text="dr jitendra kumar mbbs ms chief surgeon laparoscopic general laser surgery">
+        <div class="doc-card-header">
+          <div class="doc-avatar">
+            <img src="assets/images/dr-jitendra-kumar.jpg" alt="Dr. Jitendra Kumar" onerror="this.src='Dr jitendra kumar.jpeg'">
+          </div>
+          <div class="doc-qual">MBBS, MS</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Jitendra Kumar</div>
+          <div class="doc-specialty">Chief Surgeon (Lap &amp; General)</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Sat, 10AM–4PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Jitendra Kumar','Chief Surgeon')">Book Consultation</button>
+        </div>
+      </div>
+
+      <!-- Super Specialists -->
+
+      <div class="doc-card" data-dept="ortho" data-text="dr sushil kumar singh mch ortho spine surgeon">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">SS</div></div>
+          <div class="doc-qual">MCh</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Sushil Kumar Singh</div>
+          <div class="doc-specialty">Ortho &amp; Spine Surgeon</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Sat, 10AM–4PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Sushil Kumar Singh','Ortho & Spine Surgeon')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="neuro" data-text="dr himanshu kumar mch neuro spine surgeon">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">HK</div></div>
+          <div class="doc-qual">MCh</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Himanshu Kumar</div>
+          <div class="doc-specialty">Neuro &amp; Spine Surgeon</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Sat, 11AM–5PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Himanshu Kumar','Neuro & Spine Surgeon')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="neuro" data-text="dr abhay ranjan dm neuro physician neurologist">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">AR</div></div>
+          <div class="doc-qual">DM</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Abhay Ranjan</div>
+          <div class="doc-specialty">Neuro Physician (Neurologist)</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Tue, Thu, Sat</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Abhay Ranjan','Neurology')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="gastro" data-text="dr vaibhav raj dm gastro hepato physician">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">VR</div></div>
+          <div class="doc-qual">DM</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Vaibhav Raj</div>
+          <div class="doc-specialty">Gastro &amp; Hepato Physician</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Sat, 11AM–3PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Vaibhav Raj','Gastroenterology & Hepatology')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="gastro" data-text="dr rakesh kumar mch gastro surgeon">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">RK</div></div>
+          <div class="doc-qual">MCh</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Rakesh Kumar</div>
+          <div class="doc-specialty">Gastro Surgeon</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Fri, 10AM–2PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Rakesh Kumar','Gastro Surgery')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="onco" data-text="dr naveen kumar mch onco surgeon oncology">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">NK</div></div>
+          <div class="doc-qual">MCh</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Naveen Kumar</div>
+          <div class="doc-specialty">Onco Surgeon</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon, Wed, Fri</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Naveen Kumar','Oncology Surgery')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="onco" data-text="dr m k bharti dm onco physician oncology">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">MB</div></div>
+          <div class="doc-qual">DM</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. M. K. Bharti</div>
+          <div class="doc-specialty">Onco Physician</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Tue, Thu, Sat</div>
+          <button class="doc-book" onclick="bookDoc('Dr. M.K. Bharti','Medical Oncology')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="uro" data-text="dr faizul haque mch uro surgeon urologist">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">FH</div></div>
+          <div class="doc-qual">MCh</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Faizul Haque</div>
+          <div class="doc-specialty">Uro Surgeon</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Sat, 12–4PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Faizul Haque','Urology & Dialysis')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="surgery" data-text="dr tariq anwar ms gen lap surgeon laparoscopy">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">TA</div></div>
+          <div class="doc-qual">MS</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Tariq Anwar</div>
+          <div class="doc-specialty">Gen. &amp; Laparoscopic Surgeon</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Daily, 10AM–5PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Tariq Anwar','General & Laparoscopic Surgery')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="surgery" data-text="dr niraj kumar ms gen lap surgeon laparoscopy">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">NK</div></div>
+          <div class="doc-qual">MS</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Niraj Kumar</div>
+          <div class="doc-specialty">Gen. &amp; Laparoscopic Surgeon</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Daily, 9AM–3PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Niraj Kumar','General & Laparoscopic Surgery')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="cardio" data-text="dr a k sinha dm cardiologist cardiology">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">AS</div></div>
+          <div class="doc-qual">DM</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. A. K. Sinha</div>
+          <div class="doc-specialty">Cardiologist</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Sat, 11AM–3PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. A.K. Sinha','Cardiology')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="icu" data-text="dr priyaranjan kumar md anaesthetic critical care icu">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">PK</div></div>
+          <div class="doc-qual">MD</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Priyaranjan Kumar</div>
+          <div class="doc-specialty">Anaesthetic &amp; Critical Care</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 24x7 On Call</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Priyaranjan Kumar','Critical Care / ICU')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="icu" data-text="dr anantu kumar md anaesthetic pain critical care">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">AK</div></div>
+          <div class="doc-qual">MD</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Anantu Kumar</div>
+          <div class="doc-specialty">Anaesthetic &amp; Pain Management</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 24x7 On Call</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Anantu Kumar','Anaesthesia & Pain Management')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="gynae" data-text="dr sangita kumari md gynecologist obstetrician gynaecology">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">SK</div></div>
+          <div class="doc-qual">MD</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Sangita Kumari</div>
+          <div class="doc-specialty">Gynecologist &amp; Obstetrician</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Daily, 10AM–7PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Sangita Kumari','Gynaecology & Obstetrics')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="pedia" data-text="dr shashi bhushan md pediatrician child care neonatal">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">SB</div></div>
+          <div class="doc-qual">MD</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Shashi Bhushan</div>
+          <div class="doc-specialty">Pediatrician</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Sat, 10AM–4PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Shashi Bhushan','Paediatrics')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="pedia" data-text="dr saurav kumar mch paediatric surgeon child surgery">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">SK</div></div>
+          <div class="doc-qual">MCh</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Saurav Kumar</div>
+          <div class="doc-specialty">Paediatric Surgeon</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Tue, Thu, Sat</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Saurav Kumar','Paediatric Surgery')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="uro" data-text="dr r a khan md nephrologist kidney dialysis nephrology">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">RK</div></div>
+          <div class="doc-qual">MD</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. R. A. Khan</div>
+          <div class="doc-specialty">Nephrologist</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon, Wed, Fri</div>
+          <button class="doc-book" onclick="bookDoc('Dr. R.A. Khan','Nephrology & Dialysis')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="burn" data-text="dr sanjay kumar mch plastic burn surgeon reconstructive">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">SK</div></div>
+          <div class="doc-qual">MCh</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Sanjay Kumar</div>
+          <div class="doc-specialty">Plastic &amp; Burn Surgeon</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Sat, 10AM–3PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Sanjay Kumar','Plastic & Burn Surgery')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="chest" data-text="dr p k shahi dm pulmonary chest physician asthma copd">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">PS</div></div>
+          <div class="doc-qual">DM</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. P. K. Shahi</div>
+          <div class="doc-specialty">Pulmonary (Chest) Physician</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Sat, 11AM–3PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. P.K. Shahi','Pulmonology')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="ent" data-text="dr uma shankar mds maxillofacial surgeon dental jaw">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">US</div></div>
+          <div class="doc-qual">MDS</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Uma Shankar</div>
+          <div class="doc-specialty">Maxillofacial Surgeon</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Daily, 10AM–6PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Uma Shankar','ENT & Maxillofacial Surgery')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="ent" data-text="dr manoj kumar verma ms ent surgeon ear nose throat">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">MV</div></div>
+          <div class="doc-qual">MS</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Manoj Kumar Verma</div>
+          <div class="doc-specialty">ENT Surgeon</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Sat, 10AM–2PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Manoj Kumar Verma','ENT Surgery')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="ent" data-text="dr sanjiv kumar ms ent surgeon ear nose throat">
+        <div class="doc-card-header">
+          <div class="doc-avatar"><div class="doc-avatar-fallback">SK</div></div>
+          <div class="doc-qual">MS</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Sanjiv Kumar</div>
+          <div class="doc-specialty">ENT Surgeon</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Mon–Sat, 3PM–7PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Sanjiv Kumar','ENT Surgery')">Book Consultation</button>
+        </div>
+      </div>
+
+      <div class="doc-card" data-dept="ortho" data-text="dr jitendra kumar ms surgeon general laparoscopy ortho">
+        <div class="doc-card-header">
+          <img src="assets/images/dr-jitendra-kumar.jpg" class="doc-avatar" alt="Dr. Jitendra Kumar" onerror="this.classList.remove('doc-avatar'); this.outerHTML='<div class=\'doc-avatar\'><div class=\'doc-avatar-fallback\'>JK</div></div>'">
+          <div class="doc-qual">MS</div>
+        </div>
+        <div class="doc-card-body">
+          <div class="doc-name">Dr. Jitendra Kumar</div>
+          <div class="doc-specialty">Chief Surgeon — Gen. &amp; Ortho</div>
+          <div class="doc-timing"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Daily, 9AM–5PM</div>
+          <button class="doc-book" onclick="bookDoc('Dr. Jitendra Kumar','General & Orthopaedic Surgery')">Book Consultation</button>
+        </div>
+      </div>
+
+      <!-- Empty state -->
+      <div id="docEmpty" style="display:none; grid-column:1/-1;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--text-light)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <h3 class="heading-3">No specialist found</h3>
+        <p>Try a different search term or browse all doctors.</p>
+        <button class="btn btn-outline btn-sm" onclick="clearDocSearch()">Show All Doctors</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-logo">
+          <img src="assets/images/logo.png" alt="Naman Hospital" width="48" height="48" style="object-fit:contain; border-radius:10px; background:white; padding:3px;" onerror="this.style.display='none'">
+          <div><div class="footer-brand-name">NAMAN HOSPITAL</div><div class="footer-brand-sub">Kankarbagh, Patna</div></div>
+        </div>
+        <p class="footer-desc">22 super-specialists, 20+ departments, 24x7 emergency — Patna's trusted ISO 9001:2015 certified hospital.</p>
+        <div class="footer-iso">ISO 9001 : 2015 Certified</div>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html" class="footer-link">Home</a></li>
+          <li><a href="services.html" class="footer-link">Services</a></li>
+          <li><a href="doctors.html" class="footer-link">Specialists</a></li>
+          <li><a href="contact.html" class="footer-link">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Specialties</h4>
+        <ul class="footer-links">
+          <li><a href="doctors.html" class="footer-link">Orthopaedics &amp; Spine</a></li>
+          <li><a href="doctors.html" class="footer-link">Neurology</a></li>
+          <li><a href="doctors.html" class="footer-link">Gastroenterology</a></li>
+          <li><a href="doctors.html" class="footer-link">Burn Care</a></li>
+          <li><a href="doctors.html" class="footer-link">Cardiology</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="tel:06123507140" class="footer-link" style="color:#FCA5A5;font-weight:700;">0612–3507140 (Emergency)</a></li>
+          <li><a href="tel:6201070884" class="footer-link">+91 6201070884</a></li>
+          <li><a href="mailto:namanhospitalpatna@gmail.com" class="footer-link" style="word-break:break-all;">namanhospitalpatna@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Naman Hospital Pvt. Ltd. All Rights Reserved.</p>
+      <p>Kankarbagh, Patna – 800 020</p>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-dock">
+  <div class="dock-inner">
+    <a href="tel:06123507140" class="dock-btn call"><div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div><span>Call 24x7</span></a>
+    <a href="https://wa.me/919304671782" target="_blank" class="dock-btn whatsapp"><div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><span>WhatsApp</span></a>
+    <a href="contact.html#appointment" class="dock-btn appointment"><div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><span>Appointment</span></a>
+  </div>
+</div>
+<div id="toast-stack"></div>
+<script src="js/main.js"></script>
+<script>
+  function bookDoc(name, dept) {
+    const msg = encodeURIComponent(`*NAMAN HOSPITAL — APPOINTMENT*\nDoctor: ${name}\nSpecialty: ${dept}\n\nPlease confirm my appointment slot. Thank you.`);
+    window.open(`https://wa.me/919304671782?text=${msg}`, '_blank');
+  }
+  function clearDocSearch() {
+    document.getElementById('docSearch').value = '';
+    document.getElementById('docSearch').dispatchEvent(new Event('input'));
+    document.querySelectorAll('.doc-tab').forEach((t, i) => t.classList.toggle('active', i === 0));
+    document.querySelectorAll('.doc-card').forEach(c => c.style.display = '');
+    document.getElementById('docEmpty').style.display = 'none';
+  }
+</script>
+</body>
+</html>

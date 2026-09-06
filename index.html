@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naman Hospital Patna — ISO 9001:2015 Certified Multi-Specialty Hospital</title>
+  <meta name="description" content="Naman Hospital in Kankarbagh, Patna — ISO 9001:2015 certified hospital with 25+ super-specialists, 24x7 emergency & trauma, advanced ICU/NICU, specialized burn care and complete diagnostics.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+    /* ---- Home-page specific styles ---- */
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      background: linear-gradient(140deg, #061424 0%, #0D47A1 45%, #1B5E20 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero-mesh {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse at 75% 30%, rgba(30,136,229,0.2) 0%, transparent 52%),
+        radial-gradient(ellipse at 20% 80%, rgba(46,125,50,0.15) 0%, transparent 48%),
+        radial-gradient(ellipse at 50% 50%, rgba(0,131,143,0.06) 0%, transparent 70%);
+    }
+    /* Animated grid lines */
+    .hero-grid-lines {
+      position: absolute; inset: 0; pointer-events: none; overflow: hidden; opacity: 0.04;
+      background-image:
+        linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 64px;
+      padding: 120px 0 80px;
+    }
+    .hero-content { display: flex; flex-direction: column; gap: 24px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      padding: 7px 16px; border-radius: 99px; width: fit-content;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+    }
+    .hero-eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ADE80; animation: ping 2s infinite; }
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.9rem, 6.5vw, 4.2rem);
+      font-weight: 700; line-height: 1.12; letter-spacing: -0.04em;
+      color: var(--white);
+    }
+    .hero-title .line-accent {
+      background: linear-gradient(135deg, #93C5FD 0%, #6EE7B7 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,0.6);
+      line-height: 1.75; max-width: 480px;
+    }
+    .hero-cta-group { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .hero-trust-strip {
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+      padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.55);
+    }
+    .trust-icon { width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; }
+
+    /* Hero Right — Real Hospital Building & Director Showcase */
+    .hero-visual {
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .hero-building-card {
+      position: relative;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+    }
+    .hero-building-img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.5s var(--ease-out);
+    }
+    .hero-building-card:hover .hero-building-img {
+      transform: scale(1.03);
+    }
+    .hero-building-overlay-top {
+      position: absolute;
+      top: 14px; left: 14px; right: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      z-index: 2;
+    }
+    .hero-status-pill {
+      background: rgba(13, 27, 46, 0.88);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 6px 12px;
+      border-radius: var(--r-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .hero-pulse-dot {
+      width: 8px; height: 8px;
+      background: #4ADE80;
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px rgba(74,222,128,0.4);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(74,222,128,0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(74,222,128,0); }
+      100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+    }
+    .hero-director-chip {
+      background: rgba(13, 71, 161, 0.94);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 4px 12px 4px 5px;
+      border-radius: var(--r-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--white);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .hero-director-chip:hover {
+      background: #1565C0;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(21,101,192,0.4);
+    }
+    .hero-director-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid #6EE7B7;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-director-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .hero-director-name {
+      font-size: 0.73rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--white);
+    }
+    .hero-director-role {
+      font-size: 0.62rem;
+      font-weight: 600;
+      color: #93C5FD;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .hero-building-bar {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(13, 27, 46, 0.88) 45%, rgba(13, 27, 46, 0.98) 100%);
+      padding: 26px 18px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      z-index: 2;
+    }
+    .hero-building-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.25;
+    }
+    .hero-building-sub {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 2px;
+    }
+    .hero-building-iso {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #6EE7B7;
+      background: rgba(110,231,183,0.15);
+      border: 1px solid rgba(110,231,183,0.3);
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .hero-cards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .hero-mini-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px; padding: 16px 14px;
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .mini-card-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .mini-card-icon.blue { background: rgba(147,197,253,0.2); }
+    .mini-card-icon.green { background: rgba(110,231,183,0.2); }
+    .mini-card-text-n { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); line-height: 1.1; }
+    .mini-card-text-l { font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.5); margin-top: 3px; }
+
+    /* Stats bar */
+    .stats-bar-section {
+      background: linear-gradient(135deg, var(--blue-deep) 0%, #0D47A1 100%);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+    }
+    .stat-item {
+      padding: 32px 20px; text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.07);
+      position: relative;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-n {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.4rem; font-weight: 700; line-height: 1;
+      color: var(--white);
+    }
+    .stat-n .plus { color: #93C5FD; }
+    .stat-l { font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.5); margin-top: 8px; line-height: 1.4; }
+    .stat-divider { width: 24px; height: 2px; background: linear-gradient(90deg, #93C5FD, #6EE7B7); border-radius: 2px; margin: 6px auto 0; }
+
+    /* Why Choose us */
+    .why-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      margin-top: 20px;
+    }
+    .why-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 32px 28px;
+      box-shadow: var(--sh-sm); transition: all 0.3s var(--ease-out);
+      position: relative; overflow: hidden;
+    }
+    .why-card::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue-mid), var(--green-bright));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s var(--ease-out);
+    }
+    .why-card:hover { transform: translateY(-6px); box-shadow: var(--sh-lg); border-color: rgba(21,101,192,0.15); }
+    .why-card:hover::after { transform: scaleX(1); }
+    .why-icon {
+      width: 56px; height: 56px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .why-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 10px; letter-spacing: -0.01em; }
+    .why-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* Services Preview */
+    .services-preview-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    }
+    .svc-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 28px 22px;
+      box-shadow: var(--sh-sm); transition: all 0.3s var(--ease-out);
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .svc-card:hover { transform: translateY(-5px); box-shadow: var(--sh-lg); border-color: rgba(21,101,192,0.18); }
+    .svc-icon-wrap {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .svc-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text-dark); line-height: 1.3; }
+    .svc-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+    .svc-link { font-size: 0.8rem; font-weight: 700; color: var(--blue-mid); display: flex; align-items: center; gap: 4px; margin-top: auto; }
+    .svc-link svg { transition: transform 0.2s; }
+    .svc-card:hover .svc-link svg { transform: translateX(4px); }
+
+    /* Burn Care Banner */
+    .burn-banner {
+      background: linear-gradient(135deg, #0D47A1 0%, #1B5E20 100%);
+      border-radius: var(--r-xl); padding: 56px 48px;
+      position: relative; overflow: hidden;
+      display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
+    }
+    .burn-banner::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 280px; height: 280px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .burn-banner-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+      padding: 6px 14px; border-radius: 99px;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.85); margin-bottom: 16px;
+    }
+    .burn-banner h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700;
+      color: var(--white); line-height: 1.2; margin-bottom: 12px; letter-spacing: -0.03em;
+    }
+    .burn-banner p { font-size: 0.95rem; color: rgba(255,255,255,0.62); line-height: 1.7; max-width: 560px; }
+    .burn-btn-group { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+
+    /* Burn Features Grid */
+    .burn-feats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-width: 0; width: 100%; }
+    .burn-feat {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--r-md); padding: 14px 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .burn-feat-check {
+      width: 20px; height: 20px; border-radius: 6px;
+      background: rgba(74,222,128,0.2); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .burn-feat-text { font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.78); }
+
+    /* Leadership strip */
+    .leaders-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px;
+    }
+    .leader-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r-lg); overflow: hidden;
+      box-shadow: var(--sh-sm); transition: all 0.3s var(--ease-out);
+    }
+    .leader-card:hover { transform: translateY(-6px); box-shadow: var(--sh-lg); border-color: rgba(21,101,192,0.2); }
+    .leader-img {
+      width: 100%; height: 240px; object-fit: cover; object-position: top center;
+      background: linear-gradient(135deg, var(--blue-light), var(--green-light));
+      display: block;
+    }
+    .leader-img-fallback {
+      width: 100%; height: 240px;
+      background: linear-gradient(135deg, #0D47A1 0%, #1B5E20 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem; font-weight: 700; color: rgba(255,255,255,0.45);
+    }
+    .leader-body { padding: 20px 18px 22px; }
+    .leader-role { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue-bright); margin-bottom: 5px; }
+    .leader-name { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-dark); line-height: 1.25; margin-bottom: 3px; }
+    .leader-deg { font-size: 0.78rem; font-weight: 500; color: var(--text-muted); }
+    .leader-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; margin-top: 10px; }
+
+    /* Appointment CTA section */
+    .appt-section {
+      background: var(--off-white);
+      padding: 96px 0;
+    }
+    .appt-grid {
+      display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: start;
+    }
+    .appt-left { display: flex; flex-direction: column; gap: 0; }
+    .contact-detail-list { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
+    .contact-detail {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r-md); padding: 16px 18px;
+      box-shadow: var(--sh-sm); transition: all 0.2s;
+    }
+    .contact-detail:hover { border-color: rgba(21,101,192,0.2); transform: translateX(4px); }
+    .cd-icon {
+      width: 42px; height: 42px; border-radius: 11px;
+      background: var(--blue-light); color: var(--blue-mid);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .cd-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); }
+    .cd-value { font-size: 0.92rem; font-weight: 700; color: var(--text-dark); line-height: 1.3; }
+    .appt-form-wrap {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r-xl); padding: 40px; box-shadow: var(--sh-md);
+    }
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .col-span-2 { grid-column: 1 / -1; }
+
+    /* Amenities */
+    .amenity-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .amenity-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 30px 22px; text-align: center;
+      box-shadow: var(--sh-sm); transition: all 0.3s var(--ease-out);
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+    .amenity-card:hover { transform: translateY(-6px); box-shadow: var(--sh-lg); border-color: rgba(21,101,192,0.15); }
+    .amenity-icon {
+      width: 64px; height: 64px; border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--blue-light) 0%, rgba(30,136,229,0.08) 100%);
+    }
+    .amenity-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.98rem; font-weight: 700; color: var(--text-dark); }
+    .amenity-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+    .amenity-tag { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--green-mid); }
+
+    /* ---- Director's Message Section ---- */
+    .director-section {
+      background: var(--white);
+      position: relative;
+    }
+    .director-card {
+      background: linear-gradient(145deg, #FFFFFF 0%, #F8FAFD 100%);
+      border: 1.5px solid rgba(21, 101, 192, 0.14);
+      border-radius: var(--r-xl);
+      padding: 48px;
+      box-shadow: 0 16px 48px rgba(13, 27, 46, 0.07);
+      position: relative;
+      overflow: hidden;
+    }
+    .director-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue-mid), var(--green-bright));
+    }
+    .director-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .director-media-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .director-img-wrapper {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0D47A1, #1565C0);
+      box-shadow: var(--sh-md);
+      border: 4px solid var(--white);
+    }
+    .director-photo {
+      width: 100%;
+      height: 390px;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.4s var(--ease-out);
+    }
+    .director-img-wrapper:hover .director-photo {
+      transform: scale(1.02);
+    }
+    .director-badge-floating {
+      position: absolute;
+      top: 14px; left: 14px;
+      background: rgba(13, 71, 161, 0.94);
+      backdrop-filter: blur(8px);
+      color: var(--white);
+      padding: 6px 14px;
+      border-radius: var(--r-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    }
+    .director-experience-tag {
+      position: absolute;
+      bottom: 14px; left: 14px; right: 14px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      border: 1px solid rgba(255,255,255,0.8);
+    }
+    .exp-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--blue-mid);
+      line-height: 1;
+    }
+    .exp-text {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      line-height: 1.3;
+    }
+    .director-meta-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 18px 16px;
+      text-align: center;
+    }
+    .director-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .director-qual {
+      display: inline-block;
+      padding: 2px 10px;
+      background: var(--blue-light);
+      color: var(--blue-deep);
+      border-radius: 4px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .director-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--blue-mid);
+      margin-bottom: 3px;
+    }
+    .director-hospital {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .director-actions-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .director-content-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .director-quote-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .director-eyebrow-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .iso-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--green-light);
+      color: var(--green-deep);
+      border: 1px solid rgba(46, 125, 50, 0.2);
+      padding: 4px 10px;
+      border-radius: var(--r-full);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .quote-svg-icon {
+      color: var(--blue-mid);
+      flex-shrink: 0;
+    }
+    .director-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.35rem, 2.3vw, 1.85rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.34;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .director-statement p {
+      font-size: 0.94rem;
+      color: var(--text-body);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+    .director-statement p:last-child {
+      margin-bottom: 0;
+    }
+    .director-statement strong {
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    .director-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 26px 0;
+    }
+    .dp-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 16px;
+      transition: all 0.25s var(--ease-out);
+    }
+    .dp-card:hover {
+      border-color: rgba(21,101,192,0.25);
+      transform: translateY(-3px);
+      box-shadow: var(--sh-sm);
+    }
+    .dp-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .dp-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .dp-desc {
+      font-size: 0.77rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .director-sign-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 22px;
+      border-top: 1px dashed var(--border);
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 10px;
+    }
+    .sign-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sign-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .sign-designation {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--blue-mid);
+    }
+    .sign-org {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+    .sign-seal {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--blue-light), var(--green-light));
+      border: 1px solid rgba(21,101,192,0.15);
+      padding: 9px 16px;
+      border-radius: var(--r-full);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--blue-deep);
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; padding: 72px 0 48px; gap: 36px; }
+      .hero-visual { display: flex; width: 100%; max-width: 540px; margin: 0 auto; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(1), .stat-item:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-preview-grid { grid-template-columns: repeat(2, 1fr); }
+      .director-grid { grid-template-columns: 1fr; gap: 32px; }
+      .director-media-col { max-width: 420px; margin: 0 auto; width: 100%; }
+      .leaders-strip { grid-template-columns: repeat(2, 1fr); }
+      .amenity-grid { grid-template-columns: repeat(2, 1fr); }
+      .appt-grid { grid-template-columns: 1fr; }
+      .burn-banner { grid-template-columns: 1fr; gap: 28px; }
+      .burn-feats { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .hero { min-height: auto; }
+      .hero-inner { padding: 40px 0 28px; gap: 28px; }
+      .hero-content { gap: 18px; }
+      .hero-title { font-size: clamp(1.75rem, 4.5vw + 0.4rem, 2.7rem); }
+      .hero-sub { font-size: 0.92rem; line-height: 1.65; }
+      .hero-cta-group { flex-direction: column; width: 100%; gap: 10px; }
+      .hero-cta-group .btn { width: 100%; padding: 13px 20px; }
+      .hero-trust-strip { gap: 12px; padding-top: 16px; }
+      .hero-cards-row { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-card { padding: 24px 20px; }
+      .services-preview-grid { grid-template-columns: 1fr; }
+      .svc-card { padding: 22px 18px; }
+      .director-card { padding: 24px 16px; }
+      .director-heading { font-size: 1.25rem; }
+      .director-photo { height: 280px; }
+      .director-pillars { grid-template-columns: 1fr; gap: 12px; }
+      .director-sign-strip { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .sign-seal { width: 100%; justify-content: center; }
+      .director-actions-btn { width: 100%; }
+      .director-actions-btn .btn { width: 100%; }
+      .leaders-strip { grid-template-columns: 1fr; }
+      .amenity-grid { grid-template-columns: 1fr; }
+      .form-grid-2 { grid-template-columns: 1fr; }
+      .col-span-2 { grid-column: auto; }
+      .burn-banner { padding: 28px 18px; border-radius: var(--r-lg); }
+      .burn-btn-group { flex-direction: column; width: 100%; }
+      .burn-btn-group .btn { width: 100%; }
+      .burn-feats { grid-template-columns: 1fr; gap: 8px; }
+      .appt-form-wrap { padding: 24px 16px; }
+      .appt-section { padding: 56px 0; }
+    }
+    @media (max-width: 480px) {
+      .hero-inner { padding: 28px 0 20px; gap: 22px; }
+      .hero-trust-strip { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stat-item { padding: 16px 8px; }
+      .stat-n { font-size: 1.5rem; }
+      .stat-l { font-size: 0.7rem; }
+      .director-card { padding: 20px 14px; }
+      .director-photo { height: 240px; }
+      .director-experience-tag { padding: 8px 10px; }
+      .exp-num { font-size: 1.15rem; }
+      .exp-text { font-size: 0.68rem; }
+      .hero-building-img { height: 200px; }
+      .hero-building-overlay-top { top: 10px; left: 10px; right: 10px; gap: 6px; }
+      .hero-building-bar { padding: 14px 10px 8px; }
+      .hero-building-title { font-size: 0.82rem; }
+      .hero-building-sub { font-size: 0.64rem; }
+      .hero-status-pill { font-size: 0.62rem; padding: 4px 7px; }
+      .hero-director-chip { padding: 3px 8px 3px 4px; gap: 6px; }
+      .hero-director-avatar { width: 22px; height: 22px; }
+      .hero-director-name { font-size: 0.66rem; }
+      .hero-director-role { font-size: 0.54rem; }
+      .burn-banner { padding: 24px 14px; }
+    }
+    @media (max-width: 360px) {
+      .hero-title { font-size: 1.6rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stat-item { padding: 14px 4px; }
+      .stat-n { font-size: 1.35rem; }
+      .stat-l { font-size: 0.66rem; }
+      .director-photo { height: 210px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ======================================================
+     EMERGENCY BAR
+====================================================== -->
+<div class="emergency-bar">
+  <div class="container emergency-bar-inner">
+    <div class="ebar-group">
+      <div class="ebar-dot"></div>
+      <a href="tel:06123507140" class="ebar-emergency">
+        <svg class="ebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/>
+        </svg>
+        24x7 Emergency: 0612 – 3507140
+      </a>
+      <a href="tel:6201070884" class="ebar-item">
+        <svg class="ebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
+        </svg>
+        Ambulance: +91 6201070884
+      </a>
+      <span class="ebar-item">
+        <svg class="ebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+        Kankarbagh, Patna – 800 020
+      </span>
+    </div>
+    <div class="ebar-group">
+      <span class="ebar-iso">ISO 9001 : 2015 Certified</span>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     NAVBAR
+====================================================== -->
+<header class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo.png" class="nav-logo-img" alt="Naman Hospital Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+      <div style="display:none; width:52px; height:52px; border-radius:12px; background:linear-gradient(135deg,#1565C0,#2E7D32); align-items:center; justify-content:center; color:white; font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.1rem;">N</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">NAMAN HOSPITAL</span>
+        <span class="nav-logo-sub">Kankarbagh, Patna</span>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="doctors.html" class="nav-link">Specialists</a>
+      <a href="#director-message" class="nav-link">Director's Desk</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:06123507140" class="nav-tel">0612 – 3507140</a>
+      <a href="contact.html#appointment" class="btn btn-primary btn-sm">Book Appointment</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" class="mobile-link active">Home</a>
+  <a href="services.html" class="mobile-link">Services</a>
+  <a href="doctors.html" class="mobile-link">Specialists</a>
+  <a href="#director-message" class="mobile-link">Director's Desk</a>
+  <a href="contact.html" class="mobile-link">Contact</a>
+  <div class="mobile-cta-group">
+    <a href="tel:06123507140" class="btn btn-white">Call: 0612-3507140</a>
+    <a href="contact.html#appointment" class="btn btn-green">Book Appointment</a>
+  </div>
+</div>
+
+<!-- ======================================================
+     HERO
+====================================================== -->
+<section class="hero" id="hero">
+  <div class="hero-mesh"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="container hero-inner">
+    <div class="hero-content reveal">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        ISO 9001 : 2015 Certified Hospital &middot; Patna
+      </div>
+      <h1 class="hero-title">
+        Your Trusted<br>
+        <span class="line-accent">Wellness Partner</span><br>
+        in Patna
+      </h1>
+      <p class="hero-sub">
+        Multi-specialty tertiary care hospital with 25+ super-specialists, dedicated burn care unit,
+        24x7 ICU &amp; NICU, advanced laparoscopic surgery, and complete diagnostics — all under one roof.
+      </p>
+      <div class="hero-cta-group">
+        <a href="contact.html#appointment" class="btn btn-white btn-lg">Book a Consultation</a>
+        <a href="#director-message" class="btn btn-ghost-white btn-lg">Director's Message</a>
+        <a href="tel:06123507140" class="btn btn-ghost-white btn-lg">Call Emergency</a>
+      </div>
+      <div class="hero-trust-strip">
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          ISO 9001:2015 Certified
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          24 / 7 Emergency
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          25+ Specialists
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual reveal reveal-delay-2">
+      <!-- Real Hospital Building Card -->
+      <div class="hero-building-card">
+        <img src="assets/images/hospital-building.jpg" alt="Naman Hospital Campus & 24x7 Naman Pharma, Kankarbagh, Patna" class="hero-building-img" onerror="this.src='IMG_5670.jpg'">
+        
+        <div class="hero-building-overlay-top">
+          <div class="hero-status-pill">
+            <span class="hero-pulse-dot"></span>
+            <span>24x7 Emergency Active</span>
+          </div>
+          <a href="#director-message" class="hero-director-chip" title="Read Director's Message">
+            <img src="assets/images/dr-rajan-kumar.jpg" alt="Dr. Rajan Kumar" class="hero-director-avatar" onerror="this.src='Dr. Rajan kumar.jpeg'">
+            <div class="hero-director-text">
+              <span class="hero-director-name">Dr. Rajan Kumar</span>
+              <span class="hero-director-role">Director &middot; Message</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="hero-building-bar">
+          <div>
+            <div class="hero-building-title">Naman Hospital Campus &amp; Pharmacy</div>
+            <div class="hero-building-sub">Rajni Path, Kankarbagh, Patna &middot; 24x7 Open</div>
+          </div>
+          <span class="hero-building-iso">ISO 9001:2015</span>
+        </div>
+      </div>
+
+      <!-- Quick Highlights Row -->
+      <div class="hero-cards-row">
+        <div class="hero-mini-card">
+          <div class="mini-card-icon blue">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#93C5FD" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+          </div>
+          <div>
+            <div class="mini-card-text-n">24/7 Critical Care</div>
+            <div class="mini-card-text-l">Trauma &amp; Burn Unit Active</div>
+          </div>
+        </div>
+        <div class="hero-mini-card">
+          <div class="mini-card-icon green">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div>
+            <div class="mini-card-text-n">25+ Specialists</div>
+            <div class="mini-card-text-l">MCh &middot; DM &middot; MS &middot; MD &middot; MDS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     STATS BAR
+====================================================== -->
+<section class="stats-bar-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-n"><span class="counter" data-target="25" data-suffix="+">25+</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-l">Super Specialists<br>MCh &middot; DM &middot; MS &middot; MD &middot; MDS</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-n"><span class="counter" data-target="20" data-suffix="+">20+</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-l">Medical Departments<br>Surgical &amp; Diagnostic Units</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-n">24<span class="plus">/7</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-l">Emergency &amp; Trauma<br>ICU &middot; NICU &middot; Burn Care</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-n">100<span class="plus">%</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-l">Digital Pathology Lab<br>X-Ray &middot; ECG &middot; Echo &middot; TMT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     WHY NAMAN HOSPITAL
+====================================================== -->
+<section class="section" style="background: var(--off-white);">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Why Choose Us</span>
+      <h2 class="heading-1">Advanced Care Backed by<br><span class="text-gradient-blue">Expert Leadership</span></h2>
+      <p>From trauma stabilization to complex super-specialty surgery, we combine technology with compassion to deliver outcomes that matter.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon" style="background: linear-gradient(135deg, #E3F2FD, rgba(30,136,229,0.08));">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3>ISO 9001:2015 Certified</h3>
+        <p>Internationally accredited for quality management standards in clinical care, patient safety, and hospital processes.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-icon" style="background: linear-gradient(135deg, #E8F5E9, rgba(67,160,71,0.08));">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.8">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+        </div>
+        <h3>25+ Super-Specialists</h3>
+        <p>MCh, DM, MS, MD and MDS qualified surgeons and physicians, each a domain leader with extensive clinical experience.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-icon" style="background: linear-gradient(135deg, rgba(0,131,143,0.08), rgba(0,131,143,0.04));">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00838F" stroke-width="1.8">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3>24x7 Emergency Ready</h3>
+        <p>Round-the-clock trauma stabilization, ambulance dispatch, ICU ventilator support, and fully staffed critical care.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon" style="background: linear-gradient(135deg, #E3F2FD, rgba(30,136,229,0.08));">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <h3>Digital Pathology Lab</h3>
+        <p>Automated computerized pathology with CBC, biochemistry, cardiac markers, hormonal assays and rapid digital reports.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-icon" style="background: linear-gradient(135deg, #E8F5E9, rgba(67,160,71,0.08));">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.8">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <h3>Advanced Diagnostics</h3>
+        <p>In-house digital X-ray, 2D Echo, ECG, TMT, and ultrasound ensuring fast, precise diagnostic support for all specialties.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-icon" style="background: linear-gradient(135deg, rgba(0,131,143,0.08), rgba(0,131,143,0.04));">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00838F" stroke-width="1.8">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+          </svg>
+        </div>
+        <h3>Patient-Centred Care</h3>
+        <p>Compassionate nursing, dedicated ward staff, family-friendly facilities including pharmacy, ambulance, and canteen 24x7.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     BURN CARE SPOTLIGHT
+====================================================== -->
+<section class="section-sm" style="background: var(--white);">
+  <div class="container">
+    <div class="burn-banner reveal">
+      <div class="burn-banner-content">
+        <div class="burn-banner-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          Special Notice — 24x7 Active
+        </div>
+        <h2>नोट: बर्न मरीज का<br>स्पेशल देखभाल</h2>
+        <p>
+          Naman Hospital operates Patna's dedicated sterile Burn Care Unit with MCh Plastic Surgeons available round-the-clock.
+          Specialized isolation wards, skin graft reconstruction, and 24x7 ICU ventilator support ensure maximum recovery.
+        </p>
+        <div class="burn-btn-group">
+          <a href="tel:6201070884" class="btn btn-white btn-sm">Call Burn Emergency: 6201070884</a>
+          <a href="contact.html#appointment" class="btn btn-ghost-white btn-sm">Consult a Burn Specialist</a>
+        </div>
+      </div>
+      <div class="burn-feats reveal reveal-delay-2">
+        <div class="burn-feat">
+          <div class="burn-feat-check">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="burn-feat-text">Sterile Isolation Ward</span>
+        </div>
+        <div class="burn-feat">
+          <div class="burn-feat-check">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="burn-feat-text">MCh Plastic Surgeons</span>
+        </div>
+        <div class="burn-feat">
+          <div class="burn-feat-check">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="burn-feat-text">Skin Graft Surgery</span>
+        </div>
+        <div class="burn-feat">
+          <div class="burn-feat-check">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="burn-feat-text">ICU Ventilator Support</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     SERVICES PREVIEW
+====================================================== -->
+<section class="section" style="background: var(--off-white);">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Medical Specialties</span>
+      <h2 class="heading-1">20+ Super-Specialty<br><span class="text-gradient-green">Departments</span></h2>
+      <p>Comprehensive medical and surgical care across all specialties, backed by state-of-the-art infrastructure and experienced super-specialists.</p>
+    </div>
+    <div class="services-preview-grid">
+      <div class="svc-card reveal">
+        <div class="svc-icon-wrap" style="background: linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.1));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16z"/></svg>
+        </div>
+        <div class="svc-title">24x7 Emergency &amp; Trauma</div>
+        <div class="svc-desc">Round-the-clock resuscitation, trauma stabilization, and critical care with fully equipped emergency units.</div>
+        <a href="services.html" class="svc-link">View Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="svc-card reveal reveal-delay-1">
+        <div class="svc-icon-wrap" style="background: linear-gradient(135deg,#E8F5E9,rgba(67,160,71,0.1));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.8"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div class="svc-title">Advanced Laparoscopic Surgery</div>
+        <div class="svc-desc">Minimally invasive keyhole surgeries for gallbladder, appendix, hernia and gastro-intestinal conditions.</div>
+        <a href="services.html" class="svc-link">View Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="svc-card reveal reveal-delay-2">
+        <div class="svc-icon-wrap" style="background: linear-gradient(135deg,rgba(0,131,143,0.08),rgba(0,131,143,0.04));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00838F" stroke-width="1.8"><path d="M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zm9.75 2.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0zM1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM17.25 19.128l-.001.144a2.25 2.25 0 01-.233.96 10.088 10.088 0 005.06-1.01.75.75 0 00.42-.643 4.875 4.875 0 00-6.957-4.611 8.586 8.586 0 011.71 5.157v.003z"/></svg>
+        </div>
+        <div class="svc-title">Orthopaedics &amp; Joint Replacement</div>
+        <div class="svc-desc">Knee and hip joint replacement, arthroscopy, complex fracture fixation, and spine surgery by MCh surgeons.</div>
+        <a href="services.html" class="svc-link">View Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="svc-card reveal reveal-delay-3">
+        <div class="svc-icon-wrap" style="background: linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.1));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <div class="svc-title">Cardiology &amp; ECG/Echo Centre</div>
+        <div class="svc-desc">Cardiac emergency management, ECG, 2D Echo, TMT, and expert DM Cardiologist consultations.</div>
+        <a href="services.html" class="svc-link">View Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:40px;" class="reveal">
+      <a href="services.html" class="btn btn-primary btn-lg">View All 20+ Departments</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     DIRECTOR'S MESSAGE
+====================================================== -->
+<section class="section director-section" id="director-message">
+  <div class="container">
+    <div class="director-card reveal">
+      <div class="director-grid">
+        
+        <!-- Left: Director's Profile Column -->
+        <div class="director-media-col">
+          <div class="director-img-wrapper">
+            <img src="assets/images/dr-rajan-kumar.jpg" alt="Dr. Rajan Kumar - Director, Naman Hospital" class="director-photo" onerror="this.src='Dr. Rajan kumar.jpeg'">
+            <div class="director-badge-floating">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              <span>Director &amp; Chief Consultant</span>
+            </div>
+            <div class="director-experience-tag">
+              <div class="exp-num">15+</div>
+              <div class="exp-text">Years of Clinical Leadership &amp; Medical Excellence</div>
+            </div>
+          </div>
+          
+          <div class="director-meta-box">
+            <h3 class="director-name">Dr. Rajan Kumar</h3>
+            <span class="director-qual">MBBS, MD</span>
+            <div class="director-title">Director &amp; Chief Consultant</div>
+            <div class="director-hospital">Naman Hospital Pvt. Ltd., Kankarbagh, Patna</div>
+            
+            <div class="director-actions-btn">
+              <a href="contact.html#appointment" class="btn btn-primary btn-sm" style="width:100%; justify-content:center;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Book Appointment
+              </a>
+              <a href="https://wa.me/919304671782?text=Hello%20Dr.%20Rajan%20Kumar,%20I%20would%20like%20to%20consult%20at%20Naman%20Hospital." target="_blank" class="btn btn-outline btn-sm" style="width:100%; justify-content:center; color:#2E7D32; border-color:rgba(46,125,50,0.35);">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                WhatsApp Consultation
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Message Content Column -->
+        <div class="director-content-col">
+          <div class="director-quote-header">
+            <div class="director-eyebrow-wrap">
+              <span class="eyebrow" style="margin-bottom:0;">Director's Message</span>
+              <span class="iso-chip">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                ISO 9001:2015 Certified
+              </span>
+            </div>
+            <div class="quote-svg-icon">
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+              </svg>
+            </div>
+          </div>
+
+          <h2 class="director-heading">
+            "Our mission is to ensure every family in Bihar receives ethical, world-class healthcare with genuine human compassion."
+          </h2>
+
+          <div class="director-statement">
+            <p>
+              Welcome to <strong>Naman Hospital</strong>. When we founded this healthcare institution at Kankarbagh in Patna, our core belief was simple yet uncompromising: healthcare is not just a medical infrastructure, but a sacred covenant between doctors and families in their most critical moments.
+            </p>
+            <p>
+              Under our clinical stewardship, Naman Hospital has developed into an <strong>ISO 9001:2015 Certified</strong> tertiary institution equipped with round-the-clock <strong>24x7 Critical Care Emergency &amp; Trauma</strong>, Patna's dedicated <strong>Specialized Burn Care Unit</strong>, advanced modular operation theatres, computerized pathology, and 24-hour patient amenities.
+            </p>
+            <p>
+              Along with our multidisciplinary team of over <strong>25+ Super-Specialists (MCh, DM, MS, MD, MDS)</strong>, my personal pledge as Director is to ensure that every patient who walks through our doors is treated with absolute clinical precision, ethical transparency, dignity, and utmost care. We are honoured to be your trusted wellness partner.
+            </p>
+          </div>
+
+          <!-- 3 Director's Core Guarantees -->
+          <div class="director-pillars">
+            <div class="dp-card">
+              <div class="dp-icon" style="background: rgba(21,101,192,0.08);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="3"/></svg>
+              </div>
+              <div class="dp-title">Ethical Integrity</div>
+              <div class="dp-desc">Honest clinical evaluation, clear patient guidance, and transparent, evidence-based care.</div>
+            </div>
+            
+            <div class="dp-card">
+              <div class="dp-icon" style="background: rgba(46,125,50,0.08);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="dp-title">24x7 Critical Response</div>
+              <div class="dp-desc">Round-the-clock emergency doctors, ICU ventilator support, and critical care ambulance dispatch.</div>
+            </div>
+
+            <div class="dp-card">
+              <div class="dp-icon" style="background: rgba(0,131,143,0.08);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00838F" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              </div>
+              <div class="dp-title">Super-Specialist Care</div>
+              <div class="dp-desc">25+ MCh, DM, MS, and MD specialists collaborating under one roof for comprehensive healing.</div>
+            </div>
+          </div>
+
+          <!-- Director Signature Strip -->
+          <div class="director-sign-strip">
+            <div class="sign-left">
+              <div class="sign-name">Dr. Rajan Kumar</div>
+              <div class="sign-designation">Director &amp; Chief Consultant</div>
+              <div class="sign-org">Naman Hospital Pvt. Ltd. &middot; Rajni Path, Kankarbagh, Patna</div>
+            </div>
+            <div class="sign-seal">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <span>"Your Trusted Wellness Partner"</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     LEADERSHIP DOCTORS
+====================================================== -->
+<section class="section" style="background: var(--off-white);">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Medical Leadership</span>
+      <h2 class="heading-1">Guided by Renowned<br><span class="text-gradient-blue">Clinical Leaders</span></h2>
+      <p>Our chief consultants and directors bring decades of specialized expertise, driving a culture of compassionate and precision-driven healthcare.</p>
+    </div>
+    <div class="leaders-strip">
+      <div class="leader-card reveal">
+        <img src="assets/images/dr-shashi-shekhar.jpg" class="leader-img" alt="Dr. Shashi Shekhar" onerror="this.parentElement.querySelector('.leader-img-fallback').style.display='flex'; this.style.display='none'">
+        <div class="leader-img-fallback" style="display:none;">SS</div>
+        <div class="leader-body">
+          <div class="leader-role">Chief Consultant</div>
+          <div class="leader-name">Dr. Shashi Shekhar</div>
+          <div class="leader-deg">MBBS, MD</div>
+          <div class="leader-desc">Senior clinical consultant with extensive expertise in internal medicine and critical care management.</div>
+        </div>
+      </div>
+      <div class="leader-card reveal reveal-delay-1">
+        <img src="assets/images/dr-rajan-kumar.jpg" class="leader-img" alt="Dr. Rajan Kumar" onerror="this.parentElement.querySelector('.leader-img-fallback').style.display='flex'; this.style.display='none'">
+        <div class="leader-img-fallback" style="display:none;">RK</div>
+        <div class="leader-body">
+          <div class="leader-role">Director &amp; Chief Consultant</div>
+          <div class="leader-name">Dr. Rajan Kumar</div>
+          <div class="leader-deg">MBBS, MD</div>
+          <div class="leader-desc">Director of Naman Hospital steering clinical governance, emergency response, and quality healthcare delivery.</div>
+        </div>
+      </div>
+      <div class="leader-card reveal reveal-delay-2">
+        <div class="leader-img-fallback">SK</div>
+        <div class="leader-body">
+          <div class="leader-role">Chief Medical Consultant</div>
+          <div class="leader-name">Dr. Sehzad Khan</div>
+          <div class="leader-deg">MBBS, MD</div>
+          <div class="leader-desc">Eminent consultant overseeing comprehensive treatment protocols and preventive care programs.</div>
+        </div>
+      </div>
+      <div class="leader-card reveal reveal-delay-3">
+        <img src="assets/images/dr-jitendra-kumar.jpg" class="leader-img" alt="Dr. Jitendra Kumar" onerror="this.parentElement.querySelector('.leader-img-fallback').style.display='flex'; this.style.display='none'">
+        <div class="leader-img-fallback" style="display:none;">JK</div>
+        <div class="leader-body">
+          <div class="leader-role">Chief Surgeon</div>
+          <div class="leader-name">Dr. Jitendra Kumar</div>
+          <div class="leader-deg">MBBS, MS</div>
+          <div class="leader-desc">Master surgeon leading advanced laparoscopic, laser, trauma, and general surgical procedures.</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:40px;" class="reveal">
+      <a href="doctors.html" class="btn btn-outline">View All 22 Specialists</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     AMENITIES
+====================================================== -->
+<section class="section" style="background: var(--white);">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="eyebrow">Round-the-Clock Services</span>
+      <h2 class="heading-1">24-Hour Patient<br><span class="text-gradient-green">Amenities</span></h2>
+      <p>24 घंटे फार्मेसी, एंबुलेंस एवं कैन्टीन की सुविधा उपलब्ध है।</p>
+    </div>
+    <div class="amenity-grid">
+      <div class="amenity-card reveal">
+        <div class="amenity-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.6"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 005.5 4l-.5.5C3.25 4.5 2 5.75 2 8.5c0 2.29 1.51 4.04 3 5.5l.08.08 6.92 6.92 6.92-6.92"/><path d="M12 5v9"/><path d="M8 9h8"/></svg>
+        </div>
+        <div class="amenity-title">24-Hour Pharmacy</div>
+        <div class="amenity-desc">Fully stocked in-house pharmacy with genuine life-saving, surgical, and prescription medicines at all hours.</div>
+        <div class="amenity-tag">Always Open</div>
+      </div>
+      <div class="amenity-card reveal reveal-delay-1">
+        <div class="amenity-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.6"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="amenity-title">Critical Care Ambulance</div>
+        <div class="amenity-desc">Oxygen-equipped and ventilator-ready critical care ambulances for rapid patient transport across Patna and Bihar.</div>
+        <div class="amenity-tag">24x7 Dispatch</div>
+      </div>
+      <div class="amenity-card reveal reveal-delay-2">
+        <div class="amenity-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.6"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        </div>
+        <div class="amenity-title">Hygienic Canteen</div>
+        <div class="amenity-desc">Fresh nutritious meals for recovering patients and clean food and refreshments for patient attendants at all hours.</div>
+        <div class="amenity-tag">All Day &amp; Night</div>
+      </div>
+      <div class="amenity-card reveal reveal-delay-3">
+        <div class="amenity-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.6"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+        </div>
+        <div class="amenity-title">Computerized Path Lab</div>
+        <div class="amenity-desc">Automated blood tests, electrolytes, cardiac markers, hormones and microbiology with rapid digital reports.</div>
+        <div class="amenity-tag">Digital Reports</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     APPOINTMENT CTA
+====================================================== -->
+<section class="appt-section" id="appointment">
+  <div class="container">
+    <div class="appt-grid">
+      <div class="appt-left reveal-left">
+        <span class="eyebrow">Book a Visit</span>
+        <h2 class="heading-1" style="margin-bottom: 14px;">Get an Appointment<br><span class="text-gradient-blue">or Consultation</span></h2>
+        <p style="font-size:1rem; color:var(--text-muted); line-height:1.75;">Fill in the form and your request will be confirmed by our team via WhatsApp or a direct call. You can also walk in any day.</p>
+        
+        <div style="margin-top: 22px; border-radius: var(--r-md); overflow: hidden; border: 1.5px solid var(--border); box-shadow: var(--sh-sm);">
+          <img src="assets/images/hospital-building.jpg" alt="Naman Hospital Campus & 24x7 Naman Pharma, Kankarbagh" style="width: 100%; height: 180px; object-fit: cover; object-position: center; display: block;">
+          <div style="padding: 10px 14px; background: var(--white); display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; font-weight: 600; color: var(--text-dark);">
+            <span>Naman Hospital &amp; 24-Hour Naman Pharma</span>
+            <span style="color: var(--blue-mid); font-size: 0.72rem; font-weight: 700; text-transform: uppercase;">Kankarbagh, Patna</span>
+          </div>
+        </div>
+
+        <div class="contact-detail-list">
+          <a href="tel:06123507140" class="contact-detail">
+            <div class="cd-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div>
+            <div><div class="cd-label">24x7 Emergency Landline</div><div class="cd-value">0612 – 3507140</div></div>
+          </a>
+          <a href="https://wa.me/919304671782" target="_blank" class="contact-detail">
+            <div class="cd-icon" style="background: #E8F5E9;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+            <div><div class="cd-label">WhatsApp Consultation</div><div class="cd-value">+91 9304671782</div></div>
+          </a>
+          <a href="tel:6201070884" class="contact-detail">
+            <div class="cd-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+            <div><div class="cd-label">Ambulance &amp; Emergency</div><div class="cd-value">+91 6201070884</div></div>
+          </a>
+          <a href="mailto:namanhospitalpatna@gmail.com" class="contact-detail">
+            <div class="cd-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><div class="cd-label">Email</div><div class="cd-value">namanhospitalpatna@gmail.com</div></div>
+          </a>
+        </div>
+      </div>
+      <div class="appt-form-wrap reveal-right">
+        <h3 class="heading-2" style="margin-bottom:4px;">Patient Registration</h3>
+        <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:24px;">Your details are sent securely to our reception team.</p>
+        <form id="apptForm">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="fName">Patient Name *</label>
+              <input type="text" id="fName" class="form-input" placeholder="Full name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="fPhone">Mobile Number *</label>
+              <input type="tel" id="fPhone" class="form-input" placeholder="+91 XXXXX XXXXX" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="fAge">Age</label>
+              <input type="number" id="fAge" class="form-input" placeholder="e.g. 42" min="1" max="120">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="fGender">Gender</label>
+              <select id="fGender" class="form-select">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group col-span-2">
+              <label class="form-label" for="fDept">Department / Specialist</label>
+              <select id="fDept" class="form-select">
+                <option value="General OPD">General OPD</option>
+                <option value="Emergency & Trauma">Emergency &amp; Trauma</option>
+                <option value="Burn Care Unit">Burn Care Unit</option>
+                <option value="Orthopaedics & Spine">Orthopaedics &amp; Spine</option>
+                <option value="Neurology & Neurosurgery">Neurology &amp; Neurosurgery</option>
+                <option value="Gastroenterology">Gastroenterology</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Urology & Dialysis">Urology &amp; Dialysis</option>
+                <option value="Gynaecology & Obstetrics">Gynaecology &amp; Obstetrics</option>
+                <option value="Paediatrics & NICU">Paediatrics &amp; NICU</option>
+                <option value="Oncology">Oncology</option>
+                <option value="Plastic & Reconstructive Surgery">Plastic &amp; Reconstructive Surgery</option>
+                <option value="ENT & Maxillofacial">ENT &amp; Maxillofacial</option>
+                <option value="Pulmonology">Pulmonology</option>
+              </select>
+            </div>
+            <div class="form-group col-span-2">
+              <label class="form-label" for="fAddress">City / Address</label>
+              <input type="text" id="fAddress" class="form-input" placeholder="e.g. Kankarbagh, Patna">
+            </div>
+            <div class="form-group col-span-2">
+              <label class="form-label" for="fNote">Symptoms / Notes</label>
+              <textarea id="fNote" class="form-textarea" placeholder="Briefly describe your concern or any special instructions..."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:15px; font-size:0.95rem; margin-top:4px; border-radius:var(--r-md);">
+            Confirm via WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-logo">
+          <img src="assets/images/logo.png" alt="Naman Hospital" width="48" height="48" style="object-fit:contain; border-radius:10px; background:white; padding:3px;" onerror="this.style.display='none'">
+          <div>
+            <div class="footer-brand-name">NAMAN HOSPITAL</div>
+            <div class="footer-brand-sub">Kankarbagh, Patna</div>
+          </div>
+        </div>
+        <p class="footer-desc">A Unit of Naman Hospital Pvt. Ltd. — ISO 9001:2015 certified multi-specialty hospital providing world-class healthcare with compassion and clinical precision.</p>
+        <div class="footer-iso">ISO 9001 : 2015 Certified Hospital</div>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html" class="footer-link">Home</a></li>
+          <li><a href="services.html" class="footer-link">Services &amp; Departments</a></li>
+          <li><a href="doctors.html" class="footer-link">Specialist Doctors</a></li>
+          <li><a href="contact.html" class="footer-link">Contact &amp; Directions</a></li>
+          <li><a href="contact.html#appointment" class="footer-link">Book Appointment</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Key Specialties</h4>
+        <ul class="footer-links">
+          <li><a href="services.html" class="footer-link">Burn Care &amp; Plastic Surgery</a></li>
+          <li><a href="services.html" class="footer-link">Orthopaedics &amp; Joint Replacement</a></li>
+          <li><a href="services.html" class="footer-link">Neurology &amp; Spine Surgery</a></li>
+          <li><a href="services.html" class="footer-link">Laparoscopic Surgery</a></li>
+          <li><a href="services.html" class="footer-link">Urology &amp; Dialysis</a></li>
+          <li><a href="services.html" class="footer-link">Oncology &amp; Cancer Care</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="tel:06123507140" class="footer-link" style="color:#FCA5A5; font-weight:700;">0612 – 3507140 (Emergency)</a></li>
+          <li><a href="tel:6201070884" class="footer-link">+91 6201070884</a></li>
+          <li><a href="tel:9304671782" class="footer-link">+91 9304671782</a></li>
+          <li><a href="tel:7004162697" class="footer-link">+91 7004162697</a></li>
+          <li><a href="mailto:namanhospitalpatna@gmail.com" class="footer-link" style="word-break:break-all;">namanhospitalpatna@gmail.com</a></li>
+          <li><span class="footer-link" style="line-height:1.5;">G-62/C, Rajni Path, Dr. R.N. Singh Road, Kankarbagh, Patna – 800 020</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Naman Hospital Pvt. Ltd. All Rights Reserved.</p>
+      <p>Kankarbagh, Patna – 800 020, Bihar</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile Dock -->
+<div class="mobile-dock">
+  <div class="dock-inner">
+    <a href="tel:06123507140" class="dock-btn call">
+      <div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div>
+      <span>Call 24x7</span>
+    </a>
+    <a href="https://wa.me/919304671782" target="_blank" class="dock-btn whatsapp">
+      <div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+      <span>WhatsApp</span>
+    </a>
+    <a href="contact.html#appointment" class="dock-btn appointment">
+      <div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <span>Appointment</span>
+    </a>
+  </div>
+</div>
+
+<div id="toast-stack"></div>
+<script src="js/main.js"></script>
+</body>
+</html>

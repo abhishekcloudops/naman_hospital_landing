@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services &amp; Departments — Naman Hospital Patna</title>
+  <meta name="description" content="Naman Hospital offers 20+ super-specialty departments including Burn Care, Orthopaedics, Neurology, Gastroenterology, Urology, Cardiology, Oncology, Gynaecology and more in Patna.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+    /* Services-specific styles */
+    .filter-bar {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: 8px;
+      margin-bottom: 48px;
+    }
+    .fac-tab {
+      padding: 9px 20px; border-radius: var(--r-full);
+      border: 1.5px solid var(--border); background: var(--white);
+      font-size: 0.84rem; font-weight: 600; color: var(--text-muted);
+      transition: all 0.2s; cursor: pointer; font-family: 'Inter', sans-serif;
+    }
+    .fac-tab:hover { border-color: var(--blue-bright); color: var(--blue-mid); }
+    .fac-tab.active {
+      background: linear-gradient(135deg, var(--blue-mid), var(--blue-deep));
+      color: var(--white); border-color: transparent;
+      box-shadow: 0 4px 14px rgba(21,101,192,.3);
+    }
+    #facGrid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+    }
+    .fac-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 30px 26px;
+      box-shadow: var(--sh-sm); transition: all 0.3s var(--ease-out);
+      display: flex; flex-direction: column; gap: 14px;
+      position: relative; overflow: hidden;
+    }
+    .fac-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .fac-card:hover { transform: translateY(-5px); box-shadow: var(--sh-lg); border-color: rgba(21,101,192,0.15); }
+    .fac-card:hover::before { opacity: 1; }
+    .fac-card[data-cat="critical"]::before { background: linear-gradient(90deg, #DC2626, #EF4444); }
+    .fac-card[data-cat="surgery"]::before { background: linear-gradient(90deg, var(--blue-mid), var(--blue-bright)); }
+    .fac-card[data-cat="medicine"]::before { background: linear-gradient(90deg, var(--green-mid), var(--green-bright)); }
+    .fac-card[data-cat="mother-child"]::before { background: linear-gradient(90deg, #9333EA, #A855F7); }
+    .fac-card[data-cat="diagnostics"]::before { background: linear-gradient(90deg, var(--teal), #00ACC1); }
+
+    .fac-icon-box {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .fac-title { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-dark); line-height: 1.3; }
+    .fac-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; flex: 1; }
+    .fac-tag {
+      display: inline-flex; padding: 4px 12px;
+      border-radius: var(--r-full); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase; width: fit-content;
+    }
+    .fac-cta {
+      font-size: 0.8rem; font-weight: 700; color: var(--blue-mid);
+      display: flex; align-items: center; gap: 4px; margin-top: auto;
+      transition: gap 0.2s;
+    }
+    .fac-card:hover .fac-cta { gap: 8px; }
+
+    /* CTA STRIP */
+    .cta-strip {
+      background: linear-gradient(135deg, var(--blue-deep) 0%, #0D47A1 60%, var(--green-deep) 100%);
+      border-radius: var(--r-xl); padding: 56px 48px;
+      display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-strip::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 320px; height: 320px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    }
+    .cta-strip h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.5rem,3vw,2.2rem); font-weight: 700; color: var(--white); line-height: 1.2; margin-bottom: 12px; }
+    .cta-strip p { font-size:0.95rem; color:rgba(255,255,255,0.62); line-height:1.7; max-width:520px; }
+    .cta-strip-actions { display: flex; gap: 12px; flex-direction: column; min-width: 0; }
+
+    /* Procedures list */
+    .procedures-list {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+      border: 1px solid var(--border); border-radius: var(--r-lg);
+      overflow: hidden; background: var(--white);
+    }
+    .proc-item {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.88rem; font-weight: 500; color: var(--text-body);
+      transition: background 0.18s;
+    }
+    .proc-item:hover { background: var(--blue-light); color: var(--blue-deep); }
+    .proc-item:nth-child(even) { border-right: none; }
+    .proc-item:nth-last-child(-n+2) { border-bottom: none; }
+    .proc-check { width: 20px; height: 20px; border-radius: 50%; background: var(--blue-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    @media (max-width: 1024px) {
+      #facGrid { grid-template-columns: repeat(2, 1fr); }
+      .cta-strip { grid-template-columns: 1fr; gap: 28px; }
+      .cta-strip-actions { flex-direction: row; min-width: 0; }
+    }
+    @media (max-width: 768px) {
+      .filter-bar {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 4px 4px 12px;
+        margin-bottom: 28px;
+        scrollbar-width: none;
+      }
+      .filter-bar::-webkit-scrollbar { display: none; }
+      .fac-tab { flex-shrink: 0; white-space: nowrap; font-size: 0.8rem; padding: 8px 16px; }
+      #facGrid { grid-template-columns: 1fr; }
+      .fac-card { padding: 22px 18px; border-radius: var(--r-md); }
+      .cta-strip { padding: 28px 18px; border-radius: var(--r-lg); gap: 20px; }
+      .cta-strip-actions { flex-direction: column; width: 100%; min-width: 0; gap: 10px; }
+      .cta-strip-actions .btn { width: 100%; }
+      .procedures-list { grid-template-columns: 1fr; }
+      .proc-item { border-right: none; padding: 12px 14px; font-size: 0.84rem; }
+      .proc-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .proc-item:last-child { border-bottom: none; }
+    }
+    @media (max-width: 480px) {
+      .fac-card { padding: 18px 14px; }
+      .cta-strip { padding: 22px 14px; }
+      .cta-strip h2 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Emergency Bar -->
+<div class="emergency-bar">
+  <div class="container emergency-bar-inner">
+    <div class="ebar-group">
+      <div class="ebar-dot"></div>
+      <a href="tel:06123507140" class="ebar-emergency">
+        <svg class="ebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+        24x7 Emergency: 0612 – 3507140
+      </a>
+      <span class="ebar-item">Ambulance: +91 6201070884</span>
+    </div>
+    <div class="ebar-group"><span class="ebar-iso">ISO 9001 : 2015</span></div>
+  </div>
+</div>
+
+<!-- Navbar -->
+<header class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo.png" class="nav-logo-img" alt="Naman Hospital" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+      <div style="display:none; width:50px; height:50px; border-radius:12px; background:linear-gradient(135deg,#1565C0,#2E7D32); align-items:center; justify-content:center; color:white; font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.1rem;">N</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">NAMAN HOSPITAL</span>
+        <span class="nav-logo-sub">Kankarbagh, Patna</span>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="doctors.html" class="nav-link">Specialists</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:06123507140" class="nav-tel">0612 – 3507140</a>
+      <a href="contact.html#appointment" class="btn btn-primary btn-sm">Book Appointment</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" class="mobile-link">Home</a>
+  <a href="services.html" class="mobile-link active">Services</a>
+  <a href="doctors.html" class="mobile-link">Specialists</a>
+  <a href="contact.html" class="mobile-link">Contact</a>
+  <div class="mobile-cta-group">
+    <a href="tel:06123507140" class="btn btn-white">Call Emergency</a>
+    <a href="contact.html#appointment" class="btn btn-green">Book Appointment</a>
+  </div>
+</div>
+
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="page-hero-mesh"></div>
+  <div class="container page-hero-content">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>Services &amp; Departments</span>
+    </div>
+    <div class="page-hero-eyebrow">20+ Super-Specialty Units</div>
+    <h1>Comprehensive Medical<br>Services &amp; Departments</h1>
+    <p>From emergency trauma to elective super-specialty surgery — every branch of medicine, all under one accredited, ISO-certified roof in Kankarbagh, Patna.</p>
+  </div>
+</div>
+
+<!-- ======================================================
+     DEPARTMENTS GRID
+====================================================== -->
+<section class="section" style="background: var(--off-white);">
+  <div class="container">
+    <div class="section-header reveal" style="margin-bottom:36px;">
+      <span class="eyebrow">All Departments</span>
+      <h2 class="heading-1">Filter by <span class="text-gradient-blue">Specialty</span></h2>
+    </div>
+    <div class="filter-bar">
+      <button class="fac-tab active" data-cat="all">All Departments</button>
+      <button class="fac-tab" data-cat="critical">Emergency &amp; Critical</button>
+      <button class="fac-tab" data-cat="surgery">Advanced Surgery</button>
+      <button class="fac-tab" data-cat="medicine">Medicine &amp; Specialty</button>
+      <button class="fac-tab" data-cat="mother-child">Mother &amp; Child</button>
+      <button class="fac-tab" data-cat="diagnostics">Diagnostics</button>
+    </div>
+    <div id="facGrid">
+      <!-- Critical & Emergency -->
+      <div class="fac-card reveal" data-cat="critical">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#FEF2F2,rgba(220,38,38,0.06));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+        </div>
+        <div class="fac-title">24x7 Emergency &amp; Trauma</div>
+        <div class="fac-desc">Round-the-clock trauma resuscitation, polytrauma management, road accident care, and immediate surgical intervention with dedicated emergency teams.</div>
+        <span class="fac-tag" style="background:#FEF2F2; color:#DC2626;">Critical Care</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal reveal-delay-1" data-cat="critical">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#FEF2F2,rgba(220,38,38,0.06));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="fac-title">Advanced ICU &amp; Ventilator Support</div>
+        <div class="fac-desc">State-of-the-art intensive care unit with multi-parameter monitors, advanced ventilators, and round-the-clock critical care physician coverage.</div>
+        <span class="fac-tag" style="background:#FEF2F2; color:#DC2626;">Critical Care</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal reveal-delay-2" data-cat="critical">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#FEF2F2,rgba(220,38,38,0.06));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="fac-title">Specialized Burn Care Unit (24x7)</div>
+        <div class="fac-desc">Patna's dedicated sterile burn unit with MCh Plastic Surgeons. Complete burn rehabilitation — fluid resuscitation, skin grafting, contracture management and scar correction.</div>
+        <span class="fac-tag" style="background:#FEF2F2; color:#DC2626;">Critical — Burn</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal" data-cat="critical">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#FEF2F2,rgba(220,38,38,0.06));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <div class="fac-title">Cardiology &amp; Cardiac Emergency</div>
+        <div class="fac-desc">Expert DM Cardiologist consultations, ECG, 2D echocardiography, TMT, cardiac enzyme assays and immediate heart attack management.</div>
+        <span class="fac-tag" style="background:#FEF2F2; color:#DC2626;">Critical Care</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+
+      <!-- Surgery -->
+      <div class="fac-card reveal reveal-delay-1" data-cat="surgery">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        </div>
+        <div class="fac-title">Advanced Laparoscopic Surgery</div>
+        <div class="fac-desc">Minimally invasive keyhole surgeries including cholecystectomy, appendectomy, hernia repair, bariatric, and complex GI procedures with rapid recovery.</div>
+        <span class="fac-tag tag-blue">Surgery</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal reveal-delay-2" data-cat="surgery">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="fac-title">Orthopaedics, Spine &amp; Joint Replacement</div>
+        <div class="fac-desc">Knee and hip arthroplasty, arthroscopy, sports injuries, complex fracture fixation, micro-surgery, spine surgery, and disc management by MCh specialists.</div>
+        <span class="fac-tag tag-blue">Surgery</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal" data-cat="surgery">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <div class="fac-title">Urology &amp; Urological Surgery</div>
+        <div class="fac-desc">Kidney stone removal (PCNL/RIRS), prostate surgery, bladder procedures, URS, and complex urosurgery by MCh Urologists. 24x7 Dialysis Unit also available.</div>
+        <span class="fac-tag tag-blue">Surgery &amp; Dialysis</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal reveal-delay-1" data-cat="surgery">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><path d="M9.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 01-4.96-.46 2.5 2.5 0 01-1.07-4.74L7 12M9.5 2A2.5 2.5 0 017 4.5V12m2.5-9.5a2.5 2.5 0 002.5 2.5H15m0 0a2.5 2.5 0 012.5 2.5 2.5 2.5 0 01-2.5 2.5M15 7a2.5 2.5 0 012.5 2.5v5A2.5 2.5 0 0115 17"/></svg>
+        </div>
+        <div class="fac-title">Neurosurgery &amp; Brain Surgery</div>
+        <div class="fac-desc">Head injury management, brain tumour surgery, stroke intervention, spinal cord procedures, and expert MCh Neurosurgeon consultations.</div>
+        <span class="fac-tag tag-blue">Neuro Surgery</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal reveal-delay-2" data-cat="surgery">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+        </div>
+        <div class="fac-title">Gastro &amp; GI Surgery</div>
+        <div class="fac-desc">Stomach, bowel, liver, pancreatic, and biliary surgeries. Endoscopic procedures — upper and lower GI scope by experienced MCh Gastro Surgeons.</div>
+        <span class="fac-tag tag-blue">GI Surgery</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal" data-cat="surgery">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><path d="M5 3l14 9-14 9V3z"/></svg>
+        </div>
+        <div class="fac-title">General Surgery, Laser &amp; Proctology</div>
+        <div class="fac-desc">Painless laser treatment for piles, fissure, fistula, varicose veins. Hernia repair, wound management and general elective surgical procedures.</div>
+        <span class="fac-tag tag-blue">General Surgery</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal reveal-delay-1" data-cat="surgery">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div class="fac-title">Plastic, Reconstructive &amp; Cosmetic Surgery</div>
+        <div class="fac-desc">Burn scar reconstruction, skin grafts, contracture release, trauma scar revision, cleft surgery, and aesthetic reconstructive procedures by MCh surgeons.</div>
+        <span class="fac-tag tag-blue">Plastic Surgery</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal reveal-delay-2" data-cat="surgery">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+        </div>
+        <div class="fac-title">Oncology Surgery &amp; Cancer Care</div>
+        <div class="fac-desc">Cancer screening, surgical resection by MCh Onco Surgeon, and medical oncology with DM Physician. Chemotherapy guidance and palliative care.</div>
+        <span class="fac-tag tag-blue">Oncology</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal" data-cat="surgery">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><path d="M9 9h.01M15 9h.01M8 13s1.5 2 4 2 4-2 4-2"/><circle cx="12" cy="12" r="10"/></svg>
+        </div>
+        <div class="fac-title">ENT &amp; Maxillofacial Surgery</div>
+        <div class="fac-desc">Microscopic ear procedures, sinus surgeries, throat operations, facial fracture fixation, jaw reconstruction, and dental implants by MS ENT and MDS surgeons.</div>
+        <span class="fac-tag tag-blue">ENT &amp; Dental</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal reveal-delay-1" data-cat="surgery">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div class="fac-title">Paediatric Surgery</div>
+        <div class="fac-desc">Neonatal and paediatric surgical procedures including congenital anomalies, hernias, circumcision and hydrocele correction by MCh Paediatric Surgeons.</div>
+        <span class="fac-tag tag-blue">Paediatric Surgery</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+
+      <!-- Medicine & Specialty -->
+      <div class="fac-card reveal reveal-delay-2" data-cat="medicine">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#E8F5E9,rgba(67,160,71,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="fac-title">Internal Medicine &amp; Pulmonology</div>
+        <div class="fac-desc">Diabetes, hypertension, thyroid, asthma, COPD, pleural effusion, and comprehensive preventive and chronic disease management by MD physicians.</div>
+        <span class="fac-tag tag-green">Medicine</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal" data-cat="medicine">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#E8F5E9,rgba(67,160,71,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.8"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div class="fac-title">Gastroenterology &amp; Hepatology</div>
+        <div class="fac-desc">DM Gastroenterologist consultations for liver disease, jaundice, GI bleed, upper and lower GI endoscopy, ERCP, and hepato-pancreato conditions.</div>
+        <span class="fac-tag tag-green">Gastro / Liver</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal reveal-delay-1" data-cat="medicine">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#E8F5E9,rgba(67,160,71,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="fac-title">Neurology &amp; Neurological Medicine</div>
+        <div class="fac-desc">DM Neurologist expert consultation for stroke, epilepsy, Parkinson's, neuropathy, headache, dementia, and neuro-critical emergency management.</div>
+        <span class="fac-tag tag-green">Neurology</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal reveal-delay-2" data-cat="medicine">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,#E8F5E9,rgba(67,160,71,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.8"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
+        </div>
+        <div class="fac-title">Nephrology &amp; Kidney Care</div>
+        <div class="fac-desc">MD Nephrologist for CKD management, hypertensive nephropathy, hematuria, proteinuria, and 24x7 hygienic hemodialysis center.</div>
+        <span class="fac-tag tag-green">Nephrology</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+
+      <!-- Mother & Child -->
+      <div class="fac-card reveal" data-cat="mother-child">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,rgba(147,51,234,0.08),rgba(168,85,247,0.05));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9333EA" stroke-width="1.8"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="fac-title">Gynaecology &amp; Obstetrics</div>
+        <div class="fac-desc">Safe normal delivery, C-section, high-risk pregnancy monitoring, fibroid surgery, hysterectomy, infertility treatment, and antenatal care.</div>
+        <span class="fac-tag" style="background:rgba(147,51,234,0.08);color:#9333EA;">Gynaecology</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal reveal-delay-1" data-cat="mother-child">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,rgba(147,51,234,0.08),rgba(168,85,247,0.05));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9333EA" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="fac-title">Paediatrics, Child Health &amp; NICU</div>
+        <div class="fac-desc">Comprehensive child care from newborn to adolescence, vaccinations, respiratory pediatrics, and neonatal intensive care for premature and high-risk babies.</div>
+        <span class="fac-tag" style="background:rgba(147,51,234,0.08);color:#9333EA;">Paediatrics</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Consultation <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+
+      <!-- Diagnostics -->
+      <div class="fac-card reveal reveal-delay-2" data-cat="diagnostics">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,rgba(0,131,143,0.08),rgba(0,131,143,0.04));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00838F" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div class="fac-title">24x7 Computerized Pathology Lab</div>
+        <div class="fac-desc">Fully automated blood tests — CBC, ESR, LFT, RFT, electrolytes, cardiac markers, thyroid profile, hormonal assays and microbiological culture reports.</div>
+        <span class="fac-tag tag-teal">Diagnostics</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal" data-cat="diagnostics">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,rgba(0,131,143,0.08),rgba(0,131,143,0.04));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00838F" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <div class="fac-title">Digital X-Ray &amp; Radiology</div>
+        <div class="fac-desc">High-resolution digital X-ray imaging for chest, bones, abdomen, and orthopaedic cases with immediate digital report generation and soft copy delivery.</div>
+        <span class="fac-tag tag-teal">Radiology</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal reveal-delay-1" data-cat="diagnostics">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,rgba(0,131,143,0.08),rgba(0,131,143,0.04));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00838F" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="fac-title">ECG, 2D Echo &amp; TMT</div>
+        <div class="fac-desc">Complete non-invasive cardiac workup — 12-lead ECG, 2D echocardiography, stress test (TMT), Holter monitoring and cardiologist interpretation.</div>
+        <span class="fac-tag tag-teal">Cardio Diagnostics</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="fac-card reveal reveal-delay-2" data-cat="diagnostics">
+        <div class="fac-icon-box" style="background:linear-gradient(135deg,rgba(0,131,143,0.08),rgba(0,131,143,0.04));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00838F" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="fac-title">Diagnostic Ultrasound</div>
+        <div class="fac-desc">Whole abdomen, pelvis, obstetric, neck, scrotal, and musculoskeletal ultrasound. Colour Doppler studies for vascular and organ perfusion assessment.</div>
+        <span class="fac-tag tag-teal">Ultrasound</span>
+        <a href="contact.html#appointment" class="fac-cta">Book Test <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     COMMON PROCEDURES
+====================================================== -->
+<section class="section-sm" style="background: var(--white);">
+  <div class="container">
+    <div class="section-header reveal" style="margin-bottom:36px;">
+      <span class="eyebrow">Procedures Performed</span>
+      <h2 class="heading-1">Common Surgical &amp;<br><span class="text-gradient-green">Medical Procedures</span></h2>
+    </div>
+    <div class="procedures-list reveal">
+      <div class="proc-item"><div class="proc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Knee &amp; Hip Replacement Surgery</div>
+      <div class="proc-item"><div class="proc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Laparoscopic Cholecystectomy</div>
+      <div class="proc-item"><div class="proc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Laser Haemorrhoid Treatment</div>
+      <div class="proc-item"><div class="proc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Burn Skin Graft Surgery</div>
+      <div class="proc-item"><div class="proc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> PCNL / RIRS Kidney Stone Removal</div>
+      <div class="proc-item"><div class="proc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Craniotomy / Brain Tumour Surgery</div>
+      <div class="proc-item"><div class="proc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Upper &amp; Lower GI Endoscopy</div>
+      <div class="proc-item"><div class="proc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Normal Delivery &amp; LSCS</div>
+      <div class="proc-item"><div class="proc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Haemodialysis (Kidney Dialysis)</div>
+      <div class="proc-item"><div class="proc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Spine Discectomy / Laminectomy</div>
+      <div class="proc-item"><div class="proc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Facial Fracture Fixation</div>
+      <div class="proc-item"><div class="proc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div> Varicose Vein Laser Ablation</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Strip -->
+<section class="section-sm" style="background:var(--off-white);">
+  <div class="container">
+    <div class="cta-strip reveal">
+      <div>
+        <h2>Need a Specialist Consultation?</h2>
+        <p>Book your appointment at Naman Hospital today — all departments available at a single location in Kankarbagh, Patna. Walk-in or call ahead.</p>
+      </div>
+      <div class="cta-strip-actions">
+        <a href="contact.html#appointment" class="btn btn-white">Book an Appointment</a>
+        <a href="tel:06123507140" class="btn btn-ghost-white">Call: 0612-3507140</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer (same as index) -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-logo">
+          <img src="assets/images/logo.png" alt="Naman Hospital" width="48" height="48" style="object-fit:contain; border-radius:10px; background:white; padding:3px;" onerror="this.style.display='none'">
+          <div><div class="footer-brand-name">NAMAN HOSPITAL</div><div class="footer-brand-sub">Kankarbagh, Patna</div></div>
+        </div>
+        <p class="footer-desc">ISO 9001:2015 certified multi-specialty hospital — 20+ departments, 25+ super-specialists, 24x7 emergency care in Kankarbagh, Patna.</p>
+        <div class="footer-iso">ISO 9001 : 2015 Certified Hospital</div>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html" class="footer-link">Home</a></li>
+          <li><a href="services.html" class="footer-link">Services &amp; Departments</a></li>
+          <li><a href="doctors.html" class="footer-link">Specialist Doctors</a></li>
+          <li><a href="contact.html" class="footer-link">Contact &amp; Directions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Departments</h4>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Burn Care</a></li>
+          <li><a href="#" class="footer-link">Orthopaedics</a></li>
+          <li><a href="#" class="footer-link">Neurosurgery</a></li>
+          <li><a href="#" class="footer-link">Laparoscopy</a></li>
+          <li><a href="#" class="footer-link">Urology &amp; Dialysis</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="tel:06123507140" class="footer-link" style="color:#FCA5A5;font-weight:700;">0612–3507140 (Emergency)</a></li>
+          <li><a href="tel:6201070884" class="footer-link">+91 6201070884</a></li>
+          <li><a href="mailto:namanhospitalpatna@gmail.com" class="footer-link" style="word-break:break-all;">namanhospitalpatna@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Naman Hospital Pvt. Ltd. All Rights Reserved.</p>
+      <p>Kankarbagh, Patna – 800 020, Bihar</p>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-dock">
+  <div class="dock-inner">
+    <a href="tel:06123507140" class="dock-btn call"><div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div><span>Call 24x7</span></a>
+    <a href="https://wa.me/919304671782" target="_blank" class="dock-btn whatsapp"><div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><span>WhatsApp</span></a>
+    <a href="contact.html#appointment" class="dock-btn appointment"><div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><span>Appointment</span></a>
+  </div>
+</div>
+<div id="toast-stack"></div>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact &amp; Appointment — Naman Hospital Patna</title>
+  <meta name="description" content="Contact Naman Hospital in Kankarbagh, Patna. Book an appointment, find our location, call our 24x7 emergency line, or reach us via WhatsApp.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+    /* Contact page specific */
+    .contact-layout {
+      display: grid; grid-template-columns: 1fr 1.15fr; gap: 56px; align-items: start;
+    }
+    .contact-info-section { display: flex; flex-direction: column; gap: 0; }
+    .contact-cards { display: flex; flex-direction: column; gap: 14px; margin-top: 36px; }
+    .contact-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 20px;
+      display: flex; align-items: flex-start; gap: 16px;
+      box-shadow: var(--sh-sm); transition: all 0.2s; cursor: pointer;
+    }
+    .contact-card:hover { border-color: rgba(21,101,192,0.25); transform: translateX(4px); box-shadow: var(--sh-md); }
+    .cc-icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--blue-light), rgba(30,136,229,0.08));
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      color: var(--blue-mid);
+    }
+    .cc-icon.green { background: linear-gradient(135deg, var(--green-light), rgba(67,160,71,0.08)); color: var(--green-mid); }
+    .cc-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 4px; }
+    .cc-value { font-size: 0.92rem; font-weight: 700; color: var(--text-dark); line-height: 1.45; }
+    .cc-value a { color: var(--blue-mid); transition: color 0.2s; }
+    .cc-value a:hover { color: var(--blue-deep); }
+
+    .phone-chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+    .phone-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border: 1.5px solid var(--border); border-radius: var(--r-full);
+      font-size: 0.8rem; font-weight: 700; color: var(--blue-mid); background: var(--white);
+      transition: all 0.2s;
+    }
+    .phone-chip:hover { background: var(--blue-mid); color: var(--white); border-color: var(--blue-mid); }
+
+    .hours-table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+    .hours-table tr:not(:last-child) td { padding-bottom: 8px; }
+    .hours-table td:first-child { font-size: 0.82rem; font-weight: 600; color: var(--text-dark); padding-right: 12px; }
+    .hours-table td:last-child { font-size: 0.82rem; color: var(--text-muted); text-align: right; }
+    .hours-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700;
+      white-space: nowrap;
+    }
+    .hours-badge.open { background: var(--green-light); color: var(--green-mid); }
+    .hours-badge.hours { background: var(--blue-light); color: var(--blue-mid); }
+
+    /* Appointment Form */
+    .appointment-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r-xl); padding: 44px;
+      box-shadow: var(--sh-lg);
+    }
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .col-span-2 { grid-column: 1 / -1; }
+    .submit-btn {
+      width: 100%; padding: 15px; border-radius: var(--r-md);
+      background: linear-gradient(135deg, var(--blue-mid), var(--blue-deep));
+      color: var(--white); font-weight: 700; font-size: 0.95rem;
+      font-family: 'Inter', sans-serif; cursor: pointer; border: none;
+      box-shadow: 0 4px 20px rgba(21,101,192,.35);
+      transition: all 0.25s var(--ease-out);
+      margin-top: 4px;
+    }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(21,101,192,.45); }
+    .form-divider {
+      display: flex; align-items: center; gap: 12px; margin: 20px 0;
+      font-size: 0.78rem; font-weight: 600; color: var(--text-muted);
+    }
+    .form-divider::before, .form-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .whatsapp-btn {
+      width: 100%; padding: 13px; border-radius: var(--r-md);
+      background: #16A34A; color: var(--white);
+      font-weight: 700; font-size: 0.88rem; font-family: 'Inter', sans-serif;
+      cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: all 0.2s;
+    }
+    .whatsapp-btn:hover { background: #15803D; transform: translateY(-2px); }
+
+    /* Map section */
+    .map-wrap {
+      border-radius: var(--r-xl); overflow: hidden;
+      border: 1px solid var(--border); box-shadow: var(--sh-md);
+      width: 100%; max-width: 100%;
+    }
+    .map-wrap iframe { width: 100% !important; height: 440px; border: none; display: block; }
+
+    /* Quick action cards */
+    .quick-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .qa-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 28px 20px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+      box-shadow: var(--sh-sm); transition: all 0.3s var(--ease-out);
+    }
+    .qa-card:hover { transform: translateY(-5px); box-shadow: var(--sh-lg); border-color: rgba(21,101,192,0.15); }
+    .qa-icon { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; }
+    .qa-title { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-dark); }
+    .qa-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+    @media (max-width: 1024px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+      .quick-actions { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .appointment-card { padding: 24px 16px; border-radius: var(--r-lg); }
+      .form-grid-2 { grid-template-columns: 1fr; }
+      .col-span-2 { grid-column: auto; }
+      .quick-actions { grid-template-columns: 1fr; }
+      .map-wrap iframe { height: 300px; }
+      .hours-table tr { display: flex; flex-direction: column; gap: 2px; margin-bottom: 8px; }
+      .hours-table tr:not(:last-child) td { padding-bottom: 0; }
+      .hours-table td:first-child { padding-right: 0; }
+      .hours-table td:last-child { text-align: left; }
+    }
+    @media (max-width: 480px) {
+      .contact-card { padding: 16px 14px; gap: 12px; }
+      .map-wrap iframe { height: 240px; }
+      .phone-chip { font-size: 0.76rem; padding: 5px 11px; }
+      .cc-value { font-size: 0.86rem; word-break: break-word; overflow-wrap: anywhere; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Emergency Bar -->
+<div class="emergency-bar">
+  <div class="container emergency-bar-inner">
+    <div class="ebar-group">
+      <div class="ebar-dot"></div>
+      <a href="tel:06123507140" class="ebar-emergency">24x7 Emergency: 0612 – 3507140</a>
+      <span class="ebar-item">Ambulance: +91 6201070884</span>
+    </div>
+    <div class="ebar-group"><span class="ebar-iso">ISO 9001 : 2015</span></div>
+  </div>
+</div>
+
+<!-- Navbar -->
+<header class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo.png" class="nav-logo-img" alt="Naman Hospital" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+      <div style="display:none; width:50px; height:50px; border-radius:12px; background:linear-gradient(135deg,#1565C0,#2E7D32); align-items:center; justify-content:center; color:white; font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.1rem;">N</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">NAMAN HOSPITAL</span>
+        <span class="nav-logo-sub">Kankarbagh, Patna</span>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="doctors.html" class="nav-link">Specialists</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="tel:06123507140" class="nav-tel">0612 – 3507140</a>
+      <a href="#appointment" class="btn btn-primary btn-sm">Book Appointment</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" class="mobile-link">Home</a>
+  <a href="services.html" class="mobile-link">Services</a>
+  <a href="doctors.html" class="mobile-link">Specialists</a>
+  <a href="contact.html" class="mobile-link active">Contact</a>
+  <div class="mobile-cta-group">
+    <a href="tel:06123507140" class="btn btn-white">Call Emergency</a>
+    <a href="#appointment" class="btn btn-green">Book Appointment</a>
+  </div>
+</div>
+
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="page-hero-mesh"></div>
+  <div class="container page-hero-content">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span class="breadcrumb-sep">›</span><span>Contact &amp; Appointment</span>
+    </div>
+    <div class="page-hero-eyebrow">Get in Touch</div>
+    <h1>Contact Naman Hospital<br>&amp; Book an Appointment</h1>
+    <p>Walk in any day or book ahead. Our reception team is available to confirm your slot immediately via WhatsApp or phone call.</p>
+  </div>
+</div>
+
+<!-- ======================================================
+     QUICK ACTIONS
+====================================================== -->
+<section class="section-sm" style="background: var(--off-white);">
+  <div class="container">
+    <div class="quick-actions">
+      <a href="tel:06123507140" class="qa-card reveal">
+        <div class="qa-icon" style="background:linear-gradient(135deg,#FEF2F2,rgba(220,38,38,0.06));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+        </div>
+        <div class="qa-title">Call 24x7 Emergency</div>
+        <div class="qa-desc">Direct landline to our emergency department — available day and night, 365 days a year.</div>
+        <span class="btn btn-outline btn-sm" style="color:#DC2626; border-color:#DC2626; pointer-events:none;">0612 – 3507140</span>
+      </a>
+      <a href="https://wa.me/919304671782?text=Hello%20Naman%20Hospital%2C%20I%20would%20like%20to%20book%20an%20appointment." target="_blank" class="qa-card reveal reveal-delay-1">
+        <div class="qa-icon" style="background:linear-gradient(135deg,#F0FDF4,rgba(22,163,74,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div class="qa-title">WhatsApp Consultation</div>
+        <div class="qa-desc">Message our team on WhatsApp for appointment booking, reports, or medical queries.</div>
+        <span class="btn btn-sm" style="background:#16A34A;color:white; pointer-events:none;">+91 9304671782</span>
+      </a>
+      <a href="#appointment" class="qa-card reveal reveal-delay-2">
+        <div class="qa-icon" style="background:linear-gradient(135deg,var(--blue-light),rgba(30,136,229,0.08));">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="qa-title">Book an Appointment</div>
+        <div class="qa-desc">Fill our simple form below and receive instant WhatsApp confirmation from our reception team.</div>
+        <span class="btn btn-primary btn-sm" style="pointer-events:none;">Fill Form Below</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     CONTACT + APPOINTMENT FORM
+====================================================== -->
+<section class="section" id="appointment" style="background: var(--white);">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- Left: Contact Info -->
+      <div class="contact-info-section reveal-left">
+        <span class="eyebrow">Contact Details</span>
+        <h2 class="heading-1" style="margin-bottom: 8px;">Find &amp; Reach<br><span class="text-gradient-blue">Naman Hospital</span></h2>
+        <p style="font-size:0.95rem; color:var(--text-muted); line-height:1.75;">We are centrally located in Kankarbagh, Patna — easily accessible from all major routes in Patna city.</p>
+
+        <div style="margin: 20px 0 24px; border-radius: var(--r-md); overflow: hidden; border: 1.5px solid var(--border); box-shadow: var(--sh-sm);">
+          <img src="assets/images/hospital-building.jpg" alt="Naman Hospital Campus & Naman Pharma, Kankarbagh, Patna" style="width: 100%; height: 210px; object-fit: cover; object-position: center; display: block;">
+          <div style="padding: 10px 14px; background: var(--off-white); display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; font-weight: 600; color: var(--text-dark);">
+            <span>Naman Hospital &amp; 24-Hour Naman Pharma</span>
+            <span style="color: var(--blue-mid); font-size: 0.72rem; font-weight: 700; text-transform: uppercase;">Kankarbagh, Patna</span>
+          </div>
+        </div>
+
+        <div class="contact-cards">
+          <div class="contact-card">
+            <div class="cc-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="cc-label">Hospital Address</div>
+              <div class="cc-value">
+                G-62/C, Rajni Path, Dr. R. N. Singh Road<br>
+                Kankarbagh, Patna – 800 020, Bihar, India
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="cc-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+            </div>
+            <div>
+              <div class="cc-label">Phone — Tap to Call</div>
+              <div class="phone-chip-row">
+                <a href="tel:06123507140" class="phone-chip">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+                  0612–3507140
+                </a>
+                <a href="tel:6201070884" class="phone-chip">+91 6201070884</a>
+                <a href="tel:9304671782" class="phone-chip">+91 9304671782</a>
+                <a href="tel:7004162697" class="phone-chip">+91 7004162697</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="cc-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="cc-label">Email &amp; Website</div>
+              <div class="cc-value">
+                <a href="mailto:namanhospitalpatna@gmail.com">namanhospitalpatna@gmail.com</a><br>
+                <a href="https://www.namanhospital.com" target="_blank" rel="noopener">www.namanhospital.com</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="cc-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <div class="cc-label">Operational Hours</div>
+              <table class="hours-table">
+                <tr>
+                  <td>Emergency / ICU / Burn</td>
+                  <td><span class="hours-badge open">Open 24 / 7</span></td>
+                </tr>
+                <tr>
+                  <td>OPD Consultation</td>
+                  <td><span class="hours-badge hours">Mon–Sat, 9AM–8PM</span></td>
+                </tr>
+                <tr>
+                  <td>Pharmacy &amp; Lab</td>
+                  <td><span class="hours-badge open">Open 24 / 7</span></td>
+                </tr>
+                <tr>
+                  <td>Dialysis Centre</td>
+                  <td><span class="hours-badge open">Open 24 / 7</span></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="contact-card cc-icon-green" style="background:linear-gradient(135deg,#F0FDF4,white);">
+            <div class="cc-icon green">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            </div>
+            <div>
+              <div class="cc-label">WhatsApp — Direct Message</div>
+              <div class="cc-value">
+                <a href="https://wa.me/919304671782?text=Hello%20Naman%20Hospital" target="_blank" rel="noopener">Chat with us: +91 9304671782</a>
+              </div>
+              <a href="https://wa.me/919304671782?text=Hello%20Naman%20Hospital%2C%20I%20need%20an%20appointment." target="_blank" class="btn btn-green btn-sm" style="margin-top:10px; display:inline-flex;">
+                Start WhatsApp Chat
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Appointment Form -->
+      <div class="appointment-card reveal-right" id="appointment">
+        <h3 class="heading-2" style="margin-bottom:4px;">Book an Appointment</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:28px;">Fill the form and we will send an instant confirmation via WhatsApp.</p>
+
+        <form id="apptForm">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label" for="fName">Patient Name *</label>
+              <input type="text" id="fName" class="form-input" placeholder="Full name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="fPhone">Mobile Number *</label>
+              <input type="tel" id="fPhone" class="form-input" placeholder="+91 XXXXX XXXXX" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="fAge">Age</label>
+              <input type="number" id="fAge" class="form-input" placeholder="e.g. 35" min="1" max="120">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="fGender">Gender</label>
+              <select id="fGender" class="form-select">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group col-span-2">
+              <label class="form-label" for="fDept">Department / Specialty</label>
+              <select id="fDept" class="form-select">
+                <option value="General OPD">General OPD</option>
+                <option value="Emergency & Trauma">Emergency &amp; Trauma</option>
+                <option value="Burn Care Unit (24x7)">Burn Care Unit (24x7)</option>
+                <option value="Orthopaedics & Spine">Orthopaedics &amp; Spine</option>
+                <option value="Neurology & Neurosurgery">Neurology &amp; Neurosurgery</option>
+                <option value="Gastroenterology & Hepatology">Gastroenterology &amp; Hepatology</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Urology & Dialysis">Urology &amp; Dialysis</option>
+                <option value="Nephrology">Nephrology</option>
+                <option value="Gynaecology & Obstetrics">Gynaecology &amp; Obstetrics</option>
+                <option value="Paediatrics & NICU">Paediatrics &amp; NICU</option>
+                <option value="Oncology">Oncology</option>
+                <option value="Plastic & Reconstructive Surgery">Plastic &amp; Reconstructive Surgery</option>
+                <option value="ENT & Maxillofacial">ENT &amp; Maxillofacial</option>
+                <option value="Pulmonology / Chest">Pulmonology / Chest</option>
+                <option value="Laparoscopic Surgery">Laparoscopic Surgery</option>
+                <option value="General Surgery">General Surgery</option>
+                <option value="Pathology Lab / Diagnostics">Pathology Lab / Diagnostics</option>
+              </select>
+            </div>
+            <div class="form-group col-span-2">
+              <label class="form-label" for="fAddress">City / Address</label>
+              <input type="text" id="fAddress" class="form-input" placeholder="e.g. Kankarbagh, Patna">
+            </div>
+            <div class="form-group col-span-2">
+              <label class="form-label" for="fNote">Symptoms / Special Notes</label>
+              <textarea id="fNote" class="form-textarea" placeholder="Briefly describe your concern or medical history relevant to this visit..."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="submit-btn">
+            Confirm Appointment via WhatsApp
+          </button>
+          <div class="form-divider">or call us directly</div>
+          <a href="tel:06123507140" class="whatsapp-btn" style="background:#1565C0;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+            Call Emergency: 0612 – 3507140
+          </a>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     MAP SECTION
+====================================================== -->
+<section class="section-sm" style="background: var(--off-white);">
+  <div class="container">
+    <div class="section-header reveal" style="margin-bottom:36px;">
+      <span class="eyebrow">Location &amp; Directions</span>
+      <h2 class="heading-1">Find Us in<br><span class="text-gradient-green">Kankarbagh, Patna</span></h2>
+      <p>G-62/C, Rajni Path, Dr. R. N. Singh Road, Kankarbagh, Patna – 800 020, Bihar</p>
+    </div>
+    <div class="map-wrap reveal">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14392.427670154032!2d85.14815965!3d25.59719875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed58f27fa0f679%3A0x6b7b252ce28b1225!2sKankarbagh%2C%20Patna%2C%20Bihar!5e0!3m2!1sen!2sin!4v1700000000000"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Naman Hospital Kankarbagh Patna Map">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-logo">
+          <img src="assets/images/logo.png" alt="Naman Hospital" width="48" height="48" style="object-fit:contain;border-radius:10px;background:white;padding:3px;" onerror="this.style.display='none'">
+          <div><div class="footer-brand-name">NAMAN HOSPITAL</div><div class="footer-brand-sub">Kankarbagh, Patna</div></div>
+        </div>
+        <p class="footer-desc">ISO 9001:2015 certified multi-specialty hospital with compassionate, precise, and world-class healthcare in Patna.</p>
+        <div class="footer-iso">ISO 9001 : 2015 Certified Hospital</div>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html" class="footer-link">Home</a></li>
+          <li><a href="services.html" class="footer-link">Services &amp; Departments</a></li>
+          <li><a href="doctors.html" class="footer-link">Specialist Doctors</a></li>
+          <li><a href="contact.html" class="footer-link">Contact &amp; Appointment</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Specialties</h4>
+        <ul class="footer-links">
+          <li><a href="services.html" class="footer-link">Burn Care Unit</a></li>
+          <li><a href="services.html" class="footer-link">Orthopaedics &amp; Spine</a></li>
+          <li><a href="services.html" class="footer-link">Neurology &amp; Neurosurgery</a></li>
+          <li><a href="services.html" class="footer-link">Urology &amp; Dialysis</a></li>
+          <li><a href="services.html" class="footer-link">Oncology</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Emergency Lines</h4>
+        <ul class="footer-links">
+          <li><a href="tel:06123507140" class="footer-link" style="color:#FCA5A5;font-weight:700;">0612–3507140</a></li>
+          <li><a href="tel:6201070884" class="footer-link">+91 6201070884</a></li>
+          <li><a href="tel:9304671782" class="footer-link">+91 9304671782</a></li>
+          <li><a href="tel:7004162697" class="footer-link">+91 7004162697</a></li>
+          <li><a href="mailto:namanhospitalpatna@gmail.com" class="footer-link" style="word-break:break-all;">namanhospitalpatna@gmail.com</a></li>
+          <li><span class="footer-link">Kankarbagh, Patna – 800 020</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Naman Hospital Pvt. Ltd. All Rights Reserved.</p>
+      <p>Kankarbagh, Patna – 800 020, Bihar</p>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-dock">
+  <div class="dock-inner">
+    <a href="tel:06123507140" class="dock-btn call"><div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div><span>Call 24x7</span></a>
+    <a href="https://wa.me/919304671782" target="_blank" class="dock-btn whatsapp"><div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><span>WhatsApp</span></a>
+    <a href="#appointment" class="dock-btn appointment"><div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><span>Appointment</span></a>
+  </div>
+</div>
+<div id="toast-stack"></div>
+<script src="js/main.js"></script>
+</body>
+</html>
