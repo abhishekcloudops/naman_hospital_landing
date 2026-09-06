@@ -57,14 +57,66 @@
       color: var(--white);
     }
     .hero-title .line-accent {
-      background: linear-gradient(135deg, #93C5FD 0%, #6EE7B7 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background: linear-gradient(120deg, #93C5FD 0%, #6EE7B7 35%, #BAE6FD 65%, #6EE7B7 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmerText 6s linear infinite;
+    }
+    @keyframes shimmerText {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14% { transform: scale(1.22); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.22); }
+      70% { transform: scale(1); }
+    }
+    .anim-heartbeat {
+      display: inline-block;
+      animation: heartbeat 2s infinite cubic-bezier(0.25, 1, 0.5, 1);
+      transform-origin: center;
+      vertical-align: middle;
     }
     .hero-sub {
       font-size: 1.05rem; color: rgba(255,255,255,0.6);
       line-height: 1.75; max-width: 480px;
     }
     .hero-cta-group { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .btn-emergency-cta {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: rgba(220, 38, 38, 0.22);
+      border: 1.5px solid rgba(239, 68, 68, 0.5);
+      color: #FECACA;
+      padding: 13px 22px;
+      border-radius: var(--r-full);
+      font-weight: 700;
+      font-size: 0.92rem;
+      transition: all 0.25s var(--ease-out);
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+    }
+    .btn-emergency-cta:hover {
+      background: #DC2626;
+      color: #FFFFFF;
+      border-color: #DC2626;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(220, 38, 38, 0.45);
+    }
+    .emergency-pulse-dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: #EF4444;
+      box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.8);
+      animation: pulseDot 1.8s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulseDot {
+      0%   { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.8); }
+      70%  { box-shadow: 0 0 0 9px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
     .hero-trust-strip {
       display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
       padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08);
@@ -79,6 +131,10 @@
     .hero-visual {
       display: flex; flex-direction: column; gap: 14px;
     }
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
     .hero-building-card {
       position: relative;
       border-radius: 22px;
@@ -87,6 +143,7 @@
       box-shadow: 0 24px 60px rgba(0,0,0,0.4);
       background: rgba(255,255,255,0.05);
       backdrop-filter: blur(12px);
+      animation: gentleFloat 6s ease-in-out infinite;
     }
     .hero-building-img {
       width: 100%;
@@ -220,6 +277,13 @@
       border-radius: 14px; padding: 16px 14px;
       backdrop-filter: blur(8px);
       display: flex; align-items: center; gap: 12px;
+      transition: all 0.25s var(--ease-out);
+    }
+    .hero-mini-card:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.25);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
     }
     .mini-card-icon {
       width: 40px; height: 40px; border-radius: 10px;
@@ -722,9 +786,10 @@
       .hero-title { font-size: clamp(1.75rem, 4.5vw + 0.4rem, 2.7rem); }
       .hero-sub { font-size: 0.92rem; line-height: 1.65; }
       .hero-cta-group { flex-direction: column; width: 100%; gap: 10px; }
-      .hero-cta-group .btn { width: 100%; padding: 13px 20px; }
+      .hero-cta-group .btn { width: 100%; padding: 13px 20px; text-align: center; justify-content: center; }
+      .hero-cta-group .btn-emergency-cta { width: 100%; justify-content: center; padding: 13px 20px; }
       .hero-trust-strip { gap: 12px; padding-top: 16px; }
-      .hero-cards-row { grid-template-columns: 1fr; }
+      .hero-cards-row { grid-template-columns: 1fr 1fr; gap: 10px; }
       .why-grid { grid-template-columns: 1fr; }
       .why-card { padding: 24px 20px; }
       .services-preview-grid { grid-template-columns: 1fr; }
@@ -751,6 +816,37 @@
     @media (max-width: 480px) {
       .hero-inner { padding: 28px 0 20px; gap: 22px; }
       .hero-trust-strip { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .hero-building-card { animation: none; }
+      .hero-building-img { height: 270px; }
+      .hero-building-overlay-top {
+        top: 12px; left: 12px; right: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .hero-status-pill {
+        font-size: 0.68rem; padding: 4px 9px;
+        white-space: nowrap;
+      }
+      .hero-director-chip {
+        padding: 3px 9px 3px 4px; gap: 6px;
+        white-space: nowrap;
+      }
+      .hero-director-avatar { width: 24px; height: 24px; }
+      .hero-director-name { font-size: 0.68rem; }
+      .hero-director-role { font-size: 0.56rem; }
+      .hero-building-bar {
+        padding: 22px 14px 10px;
+      }
+      .hero-building-title { font-size: 0.88rem; }
+      .hero-building-sub { font-size: 0.68rem; }
+      .hero-cards-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .hero-mini-card { padding: 10px 8px; gap: 8px; }
+      .mini-card-icon { width: 32px; height: 32px; border-radius: 8px; }
+      .mini-card-icon svg { width: 16px; height: 16px; }
+      .mini-card-text-n { font-size: 0.88rem; }
+      .mini-card-text-l { font-size: 0.62rem; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
       .stat-item { padding: 16px 8px; }
       .stat-n { font-size: 1.5rem; }
@@ -760,20 +856,17 @@
       .director-experience-tag { padding: 8px 10px; }
       .exp-num { font-size: 1.15rem; }
       .exp-text { font-size: 0.68rem; }
-      .hero-building-img { height: 200px; }
-      .hero-building-overlay-top { top: 10px; left: 10px; right: 10px; gap: 6px; }
-      .hero-building-bar { padding: 14px 10px 8px; }
-      .hero-building-title { font-size: 0.82rem; }
-      .hero-building-sub { font-size: 0.64rem; }
-      .hero-status-pill { font-size: 0.62rem; padding: 4px 7px; }
-      .hero-director-chip { padding: 3px 8px 3px 4px; gap: 6px; }
-      .hero-director-avatar { width: 22px; height: 22px; }
-      .hero-director-name { font-size: 0.66rem; }
-      .hero-director-role { font-size: 0.54rem; }
       .burn-banner { padding: 24px 14px; }
     }
     @media (max-width: 360px) {
       .hero-title { font-size: 1.6rem; }
+      .hero-building-img { height: 250px; }
+      .hero-building-overlay-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .hero-cards-row { grid-template-columns: 1fr; gap: 8px; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
       .stat-item { padding: 14px 4px; }
       .stat-n { font-size: 1.35rem; }
@@ -869,21 +962,25 @@
     <div class="hero-content reveal">
       <div class="hero-eyebrow">
         <span class="hero-eyebrow-dot"></span>
+        <svg class="anim-heartbeat" width="13" height="13" viewBox="0 0 24 24" fill="#4ADE80" style="margin-right:2px;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
         ISO 9001 : 2015 Certified Hospital &middot; Patna
       </div>
       <h1 class="hero-title">
-        Your Trusted<br>
-        <span class="line-accent">Wellness Partner</span><br>
+        Advanced Multi-Specialty<br>
+        <span class="line-accent">Hospital &amp; Trauma Care</span><br>
         in Patna
       </h1>
       <p class="hero-sub">
-        Multi-specialty tertiary care hospital with 25+ super-specialists, dedicated burn care unit,
-        24x7 ICU &amp; NICU, advanced laparoscopic surgery, and complete diagnostics — all under one roof.
+        Premier tertiary care hospital with 25+ super-specialists, dedicated Burn Care ICU,
+        24x7 emergency &amp; trauma services, advanced laparoscopic surgery, and complete diagnostics in Kankarbagh.
       </p>
       <div class="hero-cta-group">
-        <a href="contact.html#appointment" class="btn btn-white btn-lg">Book a Consultation</a>
-        <a href="#director-message" class="btn btn-ghost-white btn-lg">Director's Message</a>
-        <a href="tel:06123507140" class="btn btn-ghost-white btn-lg">Call Emergency</a>
+        <a href="contact.html#appointment" class="btn btn-white btn-lg">Book OPD Appointment</a>
+        <a href="tel:06123507140" class="btn btn-emergency-cta btn-lg">
+          <span class="emergency-pulse-dot"></span>
+          24x7 Emergency: 0612–3507140
+        </a>
+        <a href="#director-message" class="btn btn-ghost-white btn-lg">Director's Desk</a>
       </div>
       <div class="hero-trust-strip">
         <div class="trust-item">
@@ -896,13 +993,13 @@
           <div class="trust-icon">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
-          24 / 7 Emergency
+          24 / 7 Emergency &amp; Trauma
         </div>
         <div class="trust-item">
           <div class="trust-icon">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
           </div>
-          25+ Specialists
+          25+ Specialists &middot; Burn Unit
         </div>
       </div>
     </div>
