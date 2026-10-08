@@ -219,6 +219,31 @@ ul, ol { list-style: none; }
 }
 .ebar-item:hover { color: var(--white); }
 .ebar-icon { width: 14px; height: 14px; flex-shrink: 0; }
+.medical-inline-icon,
+.whatsapp-logo {
+  display: inline-block;
+  flex-shrink: 0;
+  background: currentColor;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+.medical-inline-icon {
+  width: 18px;
+  height: 18px;
+  -webkit-mask-image: var(--inline-icon);
+  mask-image: var(--inline-icon);
+}
+.whatsapp-logo {
+  width: 18px;
+  height: 18px;
+  color: #25D366;
+  -webkit-mask-image: url('../assets/icons/whatsapp.svg');
+  mask-image: url('../assets/icons/whatsapp.svg');
+}
 .ebar-emergency {
   display: inline-flex; align-items: center; gap: 8px;
   background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.28);
@@ -762,6 +787,21 @@ ul, ol { list-style: none; }
   stroke: currentColor;
   stroke-width: 2;
   flex-shrink: 0;
+}
+.desktop-contact-action .whatsapp-logo { width: 20px; height: 20px; color: #FFFFFF; }
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid rgba(21, 101, 192, 0.45);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* ---- Toast ---- */

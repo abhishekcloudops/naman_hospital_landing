@@ -55,6 +55,15 @@
       width: 52px; height: 52px; border-radius: 14px;
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
+    .medical-icon {
+      width: 28px;
+      height: 28px;
+      display: block;
+      color: var(--icon-color, #1565C0);
+      background: currentColor;
+      -webkit-mask: var(--icon) center / contain no-repeat;
+      mask: var(--icon) center / contain no-repeat;
+    }
     .fac-title { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-dark); line-height: 1.3; }
     .fac-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; flex: 1; }
     .fac-tag {
@@ -154,9 +163,7 @@
         <span>24x7 Emergency: <strong>0612 – 3507140</strong></span>
       </a>
       <a href="tel:6201070884" class="ebar-item ebar-item-ambulance">
-        <svg class="ebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
-        </svg>
+        <span class="medical-inline-icon" aria-hidden="true" style="--inline-icon:url('assets/icons/health/ambulance.svg');"></span>
         <span>Ambulance: +91 6201070884</span>
       </a>
       <span class="ebar-item ebar-item-location">
@@ -205,7 +212,7 @@
           <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/>
         </svg>
       </a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-controls="mobileMenu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -290,7 +297,7 @@
       <!-- Critical & Emergency -->
       <div class="fac-card reveal" data-cat="critical">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#FEF2F2,rgba(220,38,38,0.06));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/emergency.svg');--icon-color:#DC2626;"></span>
         </div>
         <div class="fac-title">24x7 Emergency &amp; Trauma</div>
         <div class="fac-desc">Round-the-clock trauma resuscitation, polytrauma management, road accident care, and immediate surgical intervention with dedicated emergency teams.</div>
@@ -299,7 +306,7 @@
       </div>
       <div class="fac-card reveal reveal-delay-1" data-cat="critical">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#FEF2F2,rgba(220,38,38,0.06));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/icu.svg');--icon-color:#DC2626;"></span>
         </div>
         <div class="fac-title">Advanced ICU &amp; Ventilator Support</div>
         <div class="fac-desc">State-of-the-art intensive care unit with multi-parameter monitors, advanced ventilators, and round-the-clock critical care physician coverage.</div>
@@ -308,7 +315,7 @@
       </div>
       <div class="fac-card reveal reveal-delay-2" data-cat="critical">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#FEF2F2,rgba(220,38,38,0.06));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/burn.svg');--icon-color:#DC2626;"></span>
         </div>
         <div class="fac-title">Specialized Burn Care Unit (24x7)</div>
         <div class="fac-desc">Patna's dedicated sterile burn unit with MCh Plastic Surgeons. Complete burn rehabilitation — fluid resuscitation, skin grafting, contracture management and scar correction.</div>
@@ -317,7 +324,7 @@
       </div>
       <div class="fac-card reveal" data-cat="critical">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#FEF2F2,rgba(220,38,38,0.06));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/cardiology.svg');--icon-color:#DC2626;"></span>
         </div>
         <div class="fac-title">Cardiology &amp; Cardiac Emergency</div>
         <div class="fac-desc">Expert DM Cardiologist consultations, ECG, 2D echocardiography, TMT, cardiac enzyme assays and immediate heart attack management.</div>
@@ -328,7 +335,7 @@
       <!-- Surgery -->
       <div class="fac-card reveal reveal-delay-1" data-cat="surgery">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/surgery.svg');"></span>
         </div>
         <div class="fac-title">Advanced Laparoscopic Surgery</div>
         <div class="fac-desc">Minimally invasive keyhole surgeries including cholecystectomy, appendectomy, hernia repair, bariatric, and complex GI procedures with rapid recovery.</div>
@@ -337,7 +344,7 @@
       </div>
       <div class="fac-card reveal reveal-delay-2" data-cat="surgery">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/orthopaedics.svg');"></span>
         </div>
         <div class="fac-title">Orthopaedics, Spine &amp; Joint Replacement</div>
         <div class="fac-desc">Knee and hip arthroplasty, arthroscopy, sports injuries, complex fracture fixation, micro-surgery, spine surgery, and disc management by MCh specialists.</div>
@@ -346,7 +353,7 @@
       </div>
       <div class="fac-card reveal" data-cat="surgery">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/urology.svg');"></span>
         </div>
         <div class="fac-title">Urology &amp; Urological Surgery</div>
         <div class="fac-desc">Kidney stone removal (PCNL/RIRS), prostate surgery, bladder procedures, URS, and complex urosurgery by MCh Urologists. 24x7 Dialysis Unit also available.</div>
@@ -355,7 +362,7 @@
       </div>
       <div class="fac-card reveal reveal-delay-1" data-cat="surgery">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><path d="M9.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 01-4.96-.46 2.5 2.5 0 01-1.07-4.74L7 12M9.5 2A2.5 2.5 0 017 4.5V12m2.5-9.5a2.5 2.5 0 002.5 2.5H15m0 0a2.5 2.5 0 012.5 2.5 2.5 2.5 0 01-2.5 2.5M15 7a2.5 2.5 0 012.5 2.5v5A2.5 2.5 0 0115 17"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/neurology.svg');"></span>
         </div>
         <div class="fac-title">Neurosurgery &amp; Brain Surgery</div>
         <div class="fac-desc">Head injury management, brain tumour surgery, stroke intervention, spinal cord procedures, and expert MCh Neurosurgeon consultations.</div>
@@ -364,7 +371,7 @@
       </div>
       <div class="fac-card reveal reveal-delay-2" data-cat="surgery">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/gastroenterology.svg');"></span>
         </div>
         <div class="fac-title">Gastro &amp; GI Surgery</div>
         <div class="fac-desc">Stomach, bowel, liver, pancreatic, and biliary surgeries. Endoscopic procedures — upper and lower GI scope by experienced MCh Gastro Surgeons.</div>
@@ -373,7 +380,7 @@
       </div>
       <div class="fac-card reveal" data-cat="surgery">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><path d="M5 3l14 9-14 9V3z"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/surgery.svg');"></span>
         </div>
         <div class="fac-title">General Surgery, Laser &amp; Proctology</div>
         <div class="fac-desc">Painless laser treatment for piles, fissure, fistula, varicose veins. Hernia repair, wound management and general elective surgical procedures.</div>
@@ -382,7 +389,7 @@
       </div>
       <div class="fac-card reveal reveal-delay-1" data-cat="surgery">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 8v4l3 3"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/surgery.svg');"></span>
         </div>
         <div class="fac-title">Plastic, Reconstructive &amp; Cosmetic Surgery</div>
         <div class="fac-desc">Burn scar reconstruction, skin grafts, contracture release, trauma scar revision, cleft surgery, and aesthetic reconstructive procedures by MCh surgeons.</div>
@@ -391,7 +398,7 @@
       </div>
       <div class="fac-card reveal reveal-delay-2" data-cat="surgery">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/oncology.svg');"></span>
         </div>
         <div class="fac-title">Oncology Surgery &amp; Cancer Care</div>
         <div class="fac-desc">Cancer screening, surgical resection by MCh Onco Surgeon, and medical oncology with DM Physician. Chemotherapy guidance and palliative care.</div>
@@ -400,7 +407,7 @@
       </div>
       <div class="fac-card reveal" data-cat="surgery">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><path d="M9 9h.01M15 9h.01M8 13s1.5 2 4 2 4-2 4-2"/><circle cx="12" cy="12" r="10"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/ent.svg');"></span>
         </div>
         <div class="fac-title">ENT &amp; Maxillofacial Surgery</div>
         <div class="fac-desc">Microscopic ear procedures, sinus surgeries, throat operations, facial fracture fixation, jaw reconstruction, and dental implants by MS ENT and MDS surgeons.</div>
@@ -409,7 +416,7 @@
       </div>
       <div class="fac-card reveal reveal-delay-1" data-cat="surgery">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#E3F2FD,rgba(30,136,229,0.08));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/pediatrics.svg');"></span>
         </div>
         <div class="fac-title">Paediatric Surgery</div>
         <div class="fac-desc">Neonatal and paediatric surgical procedures including congenital anomalies, hernias, circumcision and hydrocele correction by MCh Paediatric Surgeons.</div>
@@ -420,7 +427,7 @@
       <!-- Medicine & Specialty -->
       <div class="fac-card reveal reveal-delay-2" data-cat="medicine">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#E8F5E9,rgba(67,160,71,0.08));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/pulmonology.svg');--icon-color:#2E7D32;"></span>
         </div>
         <div class="fac-title">Internal Medicine &amp; Pulmonology</div>
         <div class="fac-desc">Diabetes, hypertension, thyroid, asthma, COPD, pleural effusion, and comprehensive preventive and chronic disease management by MD physicians.</div>
@@ -429,7 +436,7 @@
       </div>
       <div class="fac-card reveal" data-cat="medicine">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#E8F5E9,rgba(67,160,71,0.08));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.8"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/liver.svg');--icon-color:#2E7D32;"></span>
         </div>
         <div class="fac-title">Gastroenterology &amp; Hepatology</div>
         <div class="fac-desc">DM Gastroenterologist consultations for liver disease, jaundice, GI bleed, upper and lower GI endoscopy, ERCP, and hepato-pancreato conditions.</div>
@@ -438,7 +445,7 @@
       </div>
       <div class="fac-card reveal reveal-delay-1" data-cat="medicine">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#E8F5E9,rgba(67,160,71,0.08));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/neurology.svg');--icon-color:#2E7D32;"></span>
         </div>
         <div class="fac-title">Neurology &amp; Neurological Medicine</div>
         <div class="fac-desc">DM Neurologist expert consultation for stroke, epilepsy, Parkinson's, neuropathy, headache, dementia, and neuro-critical emergency management.</div>
@@ -447,7 +454,7 @@
       </div>
       <div class="fac-card reveal reveal-delay-2" data-cat="medicine">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,#E8F5E9,rgba(67,160,71,0.08));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="1.8"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/kidneys.svg');--icon-color:#2E7D32;"></span>
         </div>
         <div class="fac-title">Nephrology &amp; Kidney Care</div>
         <div class="fac-desc">MD Nephrologist for CKD management, hypertensive nephropathy, hematuria, proteinuria, and 24x7 hygienic hemodialysis center.</div>
@@ -458,7 +465,7 @@
       <!-- Mother & Child -->
       <div class="fac-card reveal" data-cat="mother-child">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,rgba(147,51,234,0.08),rgba(168,85,247,0.05));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9333EA" stroke-width="1.8"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/gynecology.svg');--icon-color:#9333EA;"></span>
         </div>
         <div class="fac-title">Gynaecology &amp; Obstetrics</div>
         <div class="fac-desc">Safe normal delivery, C-section, high-risk pregnancy monitoring, fibroid surgery, hysterectomy, infertility treatment, and antenatal care.</div>
@@ -467,7 +474,7 @@
       </div>
       <div class="fac-card reveal reveal-delay-1" data-cat="mother-child">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,rgba(147,51,234,0.08),rgba(168,85,247,0.05));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9333EA" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/pediatrics.svg');--icon-color:#9333EA;"></span>
         </div>
         <div class="fac-title">Paediatrics, Child Health &amp; NICU</div>
         <div class="fac-desc">Comprehensive child care from newborn to adolescence, vaccinations, respiratory pediatrics, and neonatal intensive care for premature and high-risk babies.</div>
@@ -478,7 +485,7 @@
       <!-- Diagnostics -->
       <div class="fac-card reveal reveal-delay-2" data-cat="diagnostics">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,rgba(0,131,143,0.08),rgba(0,131,143,0.04));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00838F" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/pathology.svg');--icon-color:#00838F;"></span>
         </div>
         <div class="fac-title">24x7 Computerized Pathology Lab</div>
         <div class="fac-desc">Fully automated blood tests — CBC, ESR, LFT, RFT, electrolytes, cardiac markers, thyroid profile, hormonal assays and microbiological culture reports.</div>
@@ -487,7 +494,7 @@
       </div>
       <div class="fac-card reveal" data-cat="diagnostics">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,rgba(0,131,143,0.08),rgba(0,131,143,0.04));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00838F" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/radiology.svg');--icon-color:#00838F;"></span>
         </div>
         <div class="fac-title">Digital X-Ray &amp; Radiology</div>
         <div class="fac-desc">High-resolution digital X-ray imaging for chest, bones, abdomen, and orthopaedic cases with immediate digital report generation and soft copy delivery.</div>
@@ -505,7 +512,7 @@
       </div>
       <div class="fac-card reveal reveal-delay-2" data-cat="diagnostics">
         <div class="fac-icon-box" style="background:linear-gradient(135deg,rgba(0,131,143,0.08),rgba(0,131,143,0.04));">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00838F" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span class="medical-icon" aria-hidden="true" style="--icon:url('assets/icons/health/ultrasound.svg');--icon-color:#00838F;"></span>
         </div>
         <div class="fac-title">Diagnostic Ultrasound</div>
         <div class="fac-desc">Whole abdomen, pelvis, obstetric, neck, scrotal, and musculoskeletal ultrasound. Colour Doppler studies for vascular and organ perfusion assessment.</div>
@@ -608,7 +615,7 @@
 <div class="mobile-dock">
   <div class="dock-inner">
     <a href="tel:06123507140" class="dock-btn call"><div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div><span>Call 24x7</span></a>
-    <a href="https://wa.me/919304671782" target="_blank" class="dock-btn whatsapp"><div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><span>WhatsApp</span></a>
+    <a href="https://wa.me/919304671782" target="_blank" class="dock-btn whatsapp"><div class="dock-btn-icon"><span class="whatsapp-logo" aria-hidden="true"></span></div><span>WhatsApp</span></a>
     <a href="contact.html#appointment" class="dock-btn appointment"><div class="dock-btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1565C0" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><span>Appointment</span></a>
   </div>
 </div>
