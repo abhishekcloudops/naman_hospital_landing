@@ -6,6 +6,34 @@
 (function () {
   'use strict';
 
+  /* ---- Resilient doctor portraits ---- */
+  document.querySelectorAll('.doc-avatar img').forEach(img => {
+    img.addEventListener('error', () => {
+      img.style.display = 'none';
+      const fallback = img.nextElementSibling;
+      if (fallback?.classList.contains('doc-avatar-fallback')) {
+        fallback.style.display = 'flex';
+      }
+    }, { once: true });
+  });
+
+  /* ---- Desktop quick contact actions ---- */
+  if (!document.querySelector('.desktop-contact-actions')) {
+    const quickActions = document.createElement('div');
+    quickActions.className = 'desktop-contact-actions';
+    quickActions.setAttribute('aria-label', 'Quick contact options');
+    quickActions.innerHTML = `
+      <a class="desktop-contact-action call" href="tel:06123507140" aria-label="Call Naman Hospital emergency">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+        <span>Call 24x7</span>
+      </a>
+      <a class="desktop-contact-action whatsapp" href="https://wa.me/919304671782?text=Hello%20Naman%20Hospital%2C%20I%20would%20like%20to%20book%20an%20appointment." target="_blank" rel="noopener" aria-label="Chat with Naman Hospital on WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>WhatsApp</span>
+      </a>`;
+    document.body.appendChild(quickActions);
+  }
+
   /* ---- Navbar scroll effect ---- */
   const navbar = document.querySelector('.navbar');
   if (navbar) {

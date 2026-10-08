@@ -279,6 +279,8 @@ ul, ol { list-style: none; }
   width: 48px;
   height: 48px;
   object-fit: contain;
+  border-radius: 50%;
+  background: var(--white);
   mix-blend-mode: multiply;
   filter: drop-shadow(0 2px 8px rgba(21, 101, 192, 0.12));
   transition: transform 0.25s var(--ease-out);
@@ -723,6 +725,45 @@ ul, ol { list-style: none; }
 .dock-btn.whatsapp .dock-btn-icon { background: #F0FDF4; }
 .dock-btn.appointment .dock-btn-icon { background: var(--blue-light); }
 
+/* ---- Desktop quick contact actions ---- */
+.desktop-contact-actions {
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  z-index: 880;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.desktop-contact-action {
+  min-width: 132px;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 15px;
+  border-radius: var(--r-full);
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(13,27,46,0.2);
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+.desktop-contact-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(13,27,46,0.28);
+}
+.desktop-contact-action.call { background: linear-gradient(135deg, #DC2626, #B91C1C); }
+.desktop-contact-action.whatsapp { background: linear-gradient(135deg, #22C55E, #15803D); }
+.desktop-contact-action svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
 /* ---- Toast ---- */
 #toast-stack {
   position: fixed; bottom: 84px; right: 20px; z-index: 9999;
@@ -801,6 +842,7 @@ ul, ol { list-style: none; }
     display: block;
     padding-bottom: max(6px, env(safe-area-inset-bottom, 0px));
   }
+  .desktop-contact-actions { display: none; }
   body {
     padding-bottom: max(78px, calc(70px + env(safe-area-inset-bottom, 0px)));
   }
